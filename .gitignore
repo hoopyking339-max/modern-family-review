@@ -1,0 +1,14 @@
+.env
+.claude/
+data/sessions/
+data/output/
+data/_last_llm_response.json
+data/last_response.txt
+data/processing_state.json
+page_*.png
+__pycache__/
+*.pyc
+.DS_Store
+*.egg-info/
+dist/
+build/

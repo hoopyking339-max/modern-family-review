@@ -142,21 +142,50 @@ Return valid JSON matching the format below. Every field is required.
   "ai_discoveries_count": 20
 }
 
-## USER ANNOTATIONS — MANDATORY, PUT THEM FIRST
-For EVERY annotation the user made, you MUST create at least one knowledge point with source="user_annotation".
-- **PUT ALL USER ANNOTATION POINTS FIRST in the output**, before any AI discoveries
-- Find the script line the user was looking at when they wrote the note
-- Use the surrounding script text to understand the context
-- The user's note is their insight — RESPECT it, EXPAND on it
-- Even if the note is in Chinese, the point should be English-first with Chinese hint
-- user_annotations_count MUST equal the actual number of user_annotation points you create
+## USER ANNOTATIONS — ABSOLUTE PRIORITY, MUST COME FIRST
+
+The user has manually marked lines in the script. These are the MOST IMPORTANT points. You MUST:
+
+1. **IDENTIFY EXACTLY**: Read the user's note AND the surrounding script text carefully. Find the SPECIFIC line the note refers to. The note is a reaction to something in the script — figure out what.
+
+2. **MERGE RELATED ANNOTATIONS**: If the user wrote multiple notes about the SAME expression or topic, CONSOLIDATE them into ONE knowledge point. Do NOT split them into separate points. For example, if the user highlighted "knock yourself out" on page 3 and wrote another note about it on page 5, create ONE point with a richer, deeper explanation that covers all their observations. The user may annotate the same thing repeatedly — that means they really care about it. Give it extra depth.
+
+3. **USE THE NOTE'S INSIGHT**: The user's note (even if in Chinese) tells you what caught their attention. EXPAND on that exact insight. If they wrote "专程串门", explain the cluster around "pop in / swing by / stop by". If they wrote a dictionary definition, build a full expression cluster around that word. For merged annotations, weave ALL their notes into one comprehensive explanation.
+
+4. **EXACT QUOTE**: The "original_text" field MUST be the EXACT line from the script the user was reacting to. Don't make up a similar sentence. Find it in the surrounding text.
+
+5. **PUT USER POINTS FIRST**: All source="user_annotation" points go BEFORE any ai_discovery points in the output.
+
+6. **ACCURATE COUNT**: user_annotations_count MUST equal the actual count of user_annotation points you output. Count them AFTER merging related annotations.
+
+**CRITICAL**: Every user annotation must be covered, but related notes on the same topic should be MERGED. If there are 8 raw annotations but 3 are about the same expression, you should have ~5-6 user_annotation points, not 8. Quality depth over quantity of points.
+
+## AI EXTENSIONS — SUPPLEMENTARY
+
+After user annotations, add ai_discovery points for other valuable expressions the user might have missed. Focus on expressions that are genuinely useful in daily conversation.
 
 ## QUANTITY
-Target exactly 12-15 points total. That's IT. Be selective — only the absolute best expressions.
-- Each explanation: 150-250 chars max. Be dense, not verbose.
-- Each examples array: 2-3 sentences max.
-- Related array: 3-5 expressions max.
-- If you go over 15 points, your JSON will be truncated and the learner sees broken cards. Stay within 15.
+- User annotation points: cover ALL user notes, merging related ones into richer single points
+- AI discovery points: add enough to reach the total target
+- **Total target: at least 30 points per episode** (combine user_annotation + ai_discovery)
+- Each explanation: 200-400 chars. Rich, deep, and practical.
+- Each examples array: 3-5 sentences showing real-life usage.
+- Related array: 4-8 expressions in the same cluster.
+- Go deep, not shallow. Every point should feel like a mini-lesson.
+- IMPORTANT: Output ALL 30+ points. Do not stop early. The JSON must be complete.
+
+## CRITICAL — OUTPUT FORMAT
+You MUST output AT LEAST 30 knowledge points total. That means 30+ objects with "source" and "original_text" inside the "scenes" array. After the user_annotation points in the first scene objects, continue adding ai_discovery points as flat objects directly in the "scenes" array:
+```json
+{ "scenes": [
+    { "name": "Scene A", "points": [ {user point 1}, {user point 2} ] },
+    { "source": "ai_discovery", "category": "phrase", "original_text": "...", ... },
+    { "source": "ai_discovery", "category": "phrase", "original_text": "...", ... },
+    ... up to 30+ total points ...
+]}
+```
+Every point must have: source, category, original_text, context, explanation, examples, related, formality, frequency, scene.
+DO NOT stop until you have at least 30 points. Count them before finishing.
 
 Return ONLY valid JSON. No markdown, no introduction, no closing remarks."""
 
@@ -169,15 +198,21 @@ def build_user_annotations_context(annotations: list) -> str:
     for i, ann in enumerate(annotations, 1):
         lines.append(f"### Annotation {i}")
         lines.append(f"Page: {ann.page}")
-        lines.append(f"User's note: {ann.text}")
+        lines.append(f"User wrote: \"{ann.text}\"")
         if ann.context_before:
-            lines.append(f"Surrounding script text (use this to find which line the note refers to):")
+            # Provide generous surrounding context (2000 chars) to ensure the exact line is included
+            ctx = ann.context_before[:2000]
+            lines.append(f"Script text surrounding this note:")
             lines.append(f"```")
-            lines.append(ann.context_before[:500])
+            lines.append(ctx)
             lines.append(f"```")
+            lines.append(f"⬆️ The user's note \"{ann.text}\" was written somewhere near these lines.")
+            lines.append(f"Find the EXACT script quote the user was reacting to.")
         lines.append("")
-        lines.append("CRITICAL: Find the EXACT script line this note refers to, and create a knowledge point with source='user_annotation'. The user's note is their personal observation — expand on it, respect their insight.")
+        lines.append("REQUIRED: Create a source='user_annotation' point with the exact script quote this note refers to. Expand on the user's insight — they noticed something worth learning.")
         lines.append("")
+    lines.append("⚠️ IMPORTANT: If multiple annotations above refer to the SAME expression or topic, MERGE them into ONE knowledge point with a richer explanation. Do NOT create separate points for the same thing.")
+    lines.append("")
     return "\n".join(lines)
 
 
@@ -222,7 +257,7 @@ Generate the review JSON. Return ONLY valid JSON."""
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": user_message},
         ],
-        max_tokens=8192,
+        max_tokens=16384,
         temperature=0.85,
     )
 
@@ -259,29 +294,57 @@ Generate the review JSON. Return ONLY valid JSON."""
         raise ValueError(f"Failed to parse DeepSeek response as JSON. Raw text (first 200 chars): {text[:200]}")
 
     scenes = []
+    flat_scene_name = ""
     for scene_data in data.get("scenes", []):
-        points = []
-        for p in scene_data.get("points", []):
-            points.append(KnowledgePoint(
-                source=p.get("source", "ai_discovery"),
-                category=p.get("category", "phrase"),
-                original_text=p.get("original_text", ""),
-                context=p.get("context", ""),
-                explanation=p.get("explanation", ""),
-                examples=p.get("examples", []),
-                related=p.get("related", []),
-                formality=p.get("formality", ""),
-                frequency=p.get("frequency", "medium"),
-                scene=p.get("scene", scene_data.get("name", "")),
-            ))
-        scenes.append({"name": scene_data.get("name", ""), "points": points})
+        # Handle flat points (LLM sometimes outputs points directly in scenes array)
+        if "source" in scene_data and "original_text" in scene_data:
+            # This is a flat point, not wrapped in a scene object
+            points = [KnowledgePoint(
+                source=scene_data.get("source", "ai_discovery"),
+                category=scene_data.get("category", "phrase"),
+                original_text=scene_data.get("original_text", ""),
+                context=scene_data.get("context", ""),
+                explanation=scene_data.get("explanation", ""),
+                examples=scene_data.get("examples", []),
+                related=scene_data.get("related", []),
+                formality=scene_data.get("formality", ""),
+                frequency=scene_data.get("frequency", "medium"),
+                scene=scene_data.get("scene", flat_scene_name),
+            )]
+            # Update flat_scene_name to the last seen scene
+            if scene_data.get("scene"):
+                flat_scene_name = scene_data.get("scene", "")
+            scenes.append({"name": scene_data.get("scene", flat_scene_name), "points": points})
+        else:
+            # Normal scene object with points array
+            points = []
+            for p in scene_data.get("points", []):
+                points.append(KnowledgePoint(
+                    source=p.get("source", "ai_discovery"),
+                    category=p.get("category", "phrase"),
+                    original_text=p.get("original_text", ""),
+                    context=p.get("context", ""),
+                    explanation=p.get("explanation", ""),
+                    examples=p.get("examples", []),
+                    related=p.get("related", []),
+                    formality=p.get("formality", ""),
+                    frequency=p.get("frequency", "medium"),
+                    scene=p.get("scene", scene_data.get("name", "")),
+                ))
+            if points:
+                flat_scene_name = scene_data.get("name", "")
+            scenes.append({"name": scene_data.get("name", ""), "points": points})
+
+    # Count actual points (don't trust LLM's count)
+    actual_user = sum(1 for s in scenes for p in s["points"] if p.source == "user_annotation")
+    actual_ai = sum(1 for s in scenes for p in s["points"] if p.source == "ai_discovery")
 
     return EpisodeReview(
         episode_label=data.get("episode_label", episode_label),
         episode_title=data.get("episode_title", episode_title),
         scenes=scenes,
-        user_annotations_count=data.get("user_annotations_count", 0),
-        ai_discoveries_count=data.get("ai_discoveries_count", 0),
+        user_annotations_count=actual_user,
+        ai_discoveries_count=actual_ai,
     )
 
 

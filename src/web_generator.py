@@ -31,8 +31,8 @@ def build_episode_html(review: EpisodeReview) -> str:
 
         for p in scene["points"]:
             is_user = p.source == "user_annotation"
-            badge_class = "badge-user" if is_user else "badge-ai"
-            badge_text = "Your note" if is_user else "AI found"
+            badge_class = "badge-user" if is_user else "badge-ext"
+            badge_text = "Your note" if is_user else "Extras"
             icon = CATEGORY_ICONS.get(p.category, "💡")
 
             examples_html = ""
@@ -123,7 +123,7 @@ def build_episode_html(review: EpisodeReview) -> str:
     --border: #eee;
     --accent: #2563eb;
     --user-stripe: #f59e0b;
-    --ai-stripe: #3b82f6;
+    --ext-stripe: #10b981;
     --user-bg: #fffbeb;
     --ai-bg: #eff6ff;
     --sidebar-w: 260px;
@@ -151,9 +151,9 @@ body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans S
 .topbar .stats {{ display: flex; gap: 6px; font-size: 0.78em; }}
 .topbar .stat {{ padding: 3px 10px; border-radius: 20px; font-weight: 600; }}
 .stat-u {{ background: #fef3c7; color: #92400e; }}
-.stat-a {{ background: #dbeafe; color: #1e40af; }}
+.stat-a {{ background: #d1fae5; color: #065f46; }}
 [data-theme="dark"] .stat-u {{ background: #422006; color: #fbbf24; }}
-[data-theme="dark"] .stat-a {{ background: #1e3a5f; color: #93c5fd; }}
+[data-theme="dark"] .stat-a {{ background: #022c22; color: #6ee7b7; }}
 
 /* Layout */
 .layout {{ display: flex; }}
@@ -175,7 +175,7 @@ body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans S
 .scene h3 {{ font-size: 1em; font-weight: 600; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }}
 
 /* Point card — collapsed by default */
-.point {{ border-radius: 8px; margin-bottom: 6px; overflow: hidden; border-left: 3px solid var(--ai-stripe); background: var(--card); }}
+.point {{ border-radius: 8px; margin-bottom: 6px; overflow: hidden; border-left: 3px solid var(--ext-stripe); background: var(--card); }}
 .point.user {{ border-left-color: var(--user-stripe); }}
 .point-summary {{ display: grid; grid-template-columns: auto 1fr auto; grid-template-rows: auto auto; gap: 2px 12px; padding: 10px 14px; cursor: pointer; align-items: center; user-select: none; }}
 .point-summary:hover {{ background: rgba(0,0,0,0.02); }}
@@ -202,7 +202,7 @@ body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans S
 /* Badge & tags */
 .badge {{ font-size: 0.68em; font-weight: 700; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.03em; }}
 .badge-user {{ background: #fef3c7; color: #b45309; }}
-.badge-ai {{ background: #dbeafe; color: #1d4ed8; }}
+.badge-ext {{ background: #d1fae5; color: #065f46; }}
 .cat {{ font-size: 0.75em; color: var(--muted); }}
 .freq {{ font-size: 0.65em; padding: 1px 5px; border-radius: 3px; font-weight: 700; text-transform: uppercase; }}
 .freq-high {{ color: #dc2626; }}
@@ -303,7 +303,7 @@ body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans S
     <span class="spacer"></span>
     <span class="stats">
         <span class="stat stat-u">Your notes {total_user}</span>
-        <span class="stat stat-a">AI found {total_ai}</span>
+        <span class="stat stat-a">Extras {total_ai}</span>
     </span>
     <span class="review-progress" id="reviewProgress" title="Review progress"></span>
     <button id="reviewBtn" onclick="startReview()" title="Start flashcard review">🎯 Review</button>
@@ -317,7 +317,7 @@ body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans S
     <div class="filter-row">
         <button class="filter-chip active" onclick="filterBy('all', this)">All</button>
         <button class="filter-chip" onclick="filterBy('user', this)">Notes</button>
-        <button class="filter-chip" onclick="filterBy('ai', this)">AI</button>
+        <button class="filter-chip" onclick="filterBy('ai', this)">Extras</button>
     </div>
     <h4>📊 Review Stats</h4>
     <div class="review-stats" id="reviewStats">
@@ -691,7 +691,7 @@ function showCard() {{
     // Front
     const icon = ({{phrase:'💬',vocabulary:'📖',grammar:'📐',culture:'🇺🇸',pronunciation:'🔊',pragmatics:'🎭'}})[point.category] || '💡';
     document.getElementById('rcfBadges').innerHTML = `
-        <span class="badge badge-${{point.source === 'user' ? 'user' : 'ai'}}">${{point.source === 'user' ? 'Your note' : 'AI found'}}</span>
+        <span class="badge badge-${{point.source === 'user' ? 'user' : 'ai'}}">${{point.source === 'user' ? 'Your note' : 'Extras'}}</span>
         <span class="cat">${{icon}} ${{point.category}}</span>
         <span class="freq freq-${{point.frequency}}">${{point.frequency}}</span>
     `;
@@ -929,7 +929,7 @@ def build_index_html(episodes: list[EpisodeReview], all_episodes_info: dict = No
         <a href="{label.lower()}.html" class="ep-card ep-done">
             <span class="ep-label">{label}</span>
             <span class="ep-title">{title}</span>
-            <span class="ep-nums"><span class="n-u">Notes {notes}</span> <span class="n-a">AI {ai}</span></span>
+            <span class="ep-nums"><span class="n-u">Notes {notes}</span> <span class="n-a">Extras {ai}</span></span>
             <span class="ep-review-stat" data-ep="{label}"></span>
         </a>''')
         else:
@@ -982,7 +982,7 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sys
 .ep-title{{font-size:0.9em;color:var(--muted);flex:1;}}
 .ep-nums{{font-size:0.8em;display:flex;gap:8px;}}
 .n-u{{color:#b45309;font-weight:600;}}
-.n-a{{color:#1d4ed8;font-weight:600;}}
+.n-a{{color:#065f46;font-weight:600;}}
 .n-pending{{color:var(--muted);font-style:italic;}}
 .ep-review-stat{{font-size:0.75em;color:var(--accent);min-width:50px;text-align:right;}}
 .empty{{text-align:center;padding:64px;color:var(--muted);}}
@@ -994,7 +994,7 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sys
 <body>
 <div class="top">
     <h1>Modern Family · Speaking Review</h1>
-    <p>Your notes + AI discoveries from each episode</p>
+    <p>台词笔记 + 地道口语Extras</p>
     <button onclick="toggleTheme()" id="themeBtn">Dark</button>
 </div>
 {progress_html}

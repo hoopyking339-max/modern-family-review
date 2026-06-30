@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2563eb">
+<link rel="manifest" href="/manifest.json">
+<title>S01E08 · Modern Family</title>
+<style>
+:root {
+    --bg: #fff;
+    --card: #fafafa;
+    --text: #222;
+    --muted: #888;
+    --border: #eee;
+    --accent: #2563eb;
+    --user-stripe: #f59e0b;
+    --ai-stripe: #3b82f6;
+    --user-bg: #fffbeb;
+    --ai-bg: #eff6ff;
+    --sidebar-w: 260px;
+}
+[data-theme="dark"] {
+    --bg: #1a1a1a;
+    --card: #252525;
+    --text: #ddd;
+    --muted: #999;
+    --border: #333;
+    --user-bg: #2d2410;
+    --ai-bg: #101d2d;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+/* Top bar */
+.topbar { border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; position: sticky; top: 0; background: var(--bg); z-index: 10; }
+.topbar h1 { font-size: 1.1em; font-weight: 600; white-space: nowrap; }
+.topbar .ep { color: var(--muted); font-size: 0.9em; }
+.topbar .spacer { flex: 1; }
+.topbar input { border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 0.85em; background: var(--card); color: var(--text); width: 180px; }
+.topbar button, .topbar a.btn { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 6px 14px; cursor: pointer; font-size: 0.82em; color: var(--text); text-decoration: none; }
+.topbar button:hover { background: var(--border); }
+.topbar .stats { display: flex; gap: 6px; font-size: 0.78em; }
+.topbar .stat { padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+.stat-u { background: #fef3c7; color: #92400e; }
+.stat-a { background: #dbeafe; color: #1e40af; }
+[data-theme="dark"] .stat-u { background: #422006; color: #fbbf24; }
+[data-theme="dark"] .stat-a { background: #1e3a5f; color: #93c5fd; }
+
+/* Layout */
+.layout { display: flex; }
+.sidebar { width: var(--sidebar-w); border-right: 1px solid var(--border); padding: 20px 16px; position: sticky; top: 57px; height: calc(100vh - 57px); overflow-y: auto; flex-shrink: 0; }
+.sidebar h4 { font-size: 0.7em; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 16px 0 6px; }
+.sidebar h4:first-child { margin-top: 0; }
+.sidebar ul { list-style: none; }
+.sidebar li { margin: 2px 0; }
+.sidebar a { color: var(--text); text-decoration: none; font-size: 0.83em; display: flex; justify-content: space-between; padding: 4px 8px; border-radius: 4px; }
+.sidebar a:hover { background: var(--border); }
+.sidebar .count { color: var(--muted); font-size: 0.8em; }
+.sidebar .filter-row { display: flex; gap: 4px; margin-bottom: 12px; }
+.sidebar .filter-chip { font-size: 0.75em; padding: 3px 8px; border-radius: 12px; border: 1px solid var(--border); cursor: pointer; background: none; color: var(--text); }
+.sidebar .filter-chip.active { background: var(--text); color: var(--bg); }
+
+/* Main */
+.main { flex: 1; padding: 24px 32px; max-width: 860px; }
+.scene { margin-bottom: 40px; }
+.scene h3 { font-size: 1em; font-weight: 600; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+
+/* Point card — collapsed by default */
+.point { border-radius: 8px; margin-bottom: 6px; overflow: hidden; border-left: 3px solid var(--ai-stripe); background: var(--card); }
+.point.user { border-left-color: var(--user-stripe); }
+.point-summary { display: grid; grid-template-columns: auto 1fr auto; grid-template-rows: auto auto; gap: 2px 12px; padding: 10px 14px; cursor: pointer; align-items: center; user-select: none; }
+.point-summary:hover { background: rgba(0,0,0,0.02); }
+.point-left { grid-column: 1; grid-row: 1 / 3; display: flex; gap: 4px; align-items: center; flex-wrap: wrap; white-space: nowrap; }
+.point-quote { grid-column: 2; grid-row: 1; font-style: italic; font-size: 0.95em; color: var(--text); white-space: normal; overflow: visible; word-break: break-word; }
+.point-hint { grid-column: 2; grid-row: 2; font-size: 0.78em; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.expand-icon { grid-column: 3; grid-row: 1 / 3; font-size: 0.7em; color: var(--muted); transition: transform 0.15s; }
+.point.open .expand-icon { transform: rotate(90deg); }
+.point-actions { grid-column: 3; grid-row: 1 / 3; display: flex; align-items: center; gap: 6px; }
+.btn-record { background: none; border: 1px solid var(--border); border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.8em; color: var(--text); text-decoration: none; flex-shrink: 0; transition: all 0.2s; }
+.btn-record:hover { background: var(--border); }
+.btn-record.recording { background: #fef2f2; border-color: #ef4444; color: #ef4444; animation: pulse 0.8s infinite; }
+.btn-record.has-recording { background: #ecfdf5; border-color: #10b981; color: #10b981; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+.detail-links { margin-top: 10px; font-size: 0.82em; }
+.detail-links a { color: var(--accent); }
+.video-container { margin-top: 12px; }
+.video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; }
+.video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+.video-caption { font-size: 0.8em; color: var(--muted); margin-top: 4px; }
+.video-placeholder, .video-fallback { font-size: 0.82em; color: var(--muted); padding: 12px; text-align: center; background: var(--border); border-radius: 6px; }
+.video-fallback a { color: var(--accent); }
+
+/* Badge & tags */
+.badge { font-size: 0.68em; font-weight: 700; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.03em; }
+.badge-user { background: #fef3c7; color: #b45309; }
+.badge-ai { background: #dbeafe; color: #1d4ed8; }
+.cat { font-size: 0.75em; color: var(--muted); }
+.freq { font-size: 0.65em; padding: 1px 5px; border-radius: 3px; font-weight: 700; text-transform: uppercase; }
+.freq-high { color: #dc2626; }
+.freq-medium { color: #d97706; }
+.freq-low { color: var(--muted); }
+
+/* Detail — hidden by default */
+.point .point-detail { display: none; padding: 0 14px 12px; font-size: 0.88em; border-top: 1px solid var(--border); margin: 0 14px; }
+.point.open .point-detail { display: block; }
+.point.open .point-summary { background: rgba(0,0,0,0.03); }
+.detail-context { color: var(--muted); font-size: 0.85em; margin: 8px 0; }
+.detail-explanation { margin: 8px 0; line-height: 1.7; }
+.examples { margin: 8px 0; }
+.examples ul { margin: 4px 0 0 18px; }
+.examples li { margin: 2px 0; font-style: italic; }
+.label { font-size: 0.75em; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; }
+.related { margin: 8px 0; }
+.tag { display: inline-block; border: 1px solid var(--border); border-radius: 12px; padding: 1px 8px; margin: 2px 3px 2px 0; font-size: 0.82em; }
+.detail-meta { color: var(--muted); font-size: 0.8em; margin-top: 6px; }
+
+.hidden { display: none !important; }
+
+@media (max-width: 768px) {
+    .layout { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border); }
+    .main { padding: 16px; }
+    .topbar { padding: 10px 14px; gap: 8px; }
+    .topbar h1 { font-size: 1em; }
+    .topbar input { width: 120px; }
+    .sidebar { display: none; }
+}
+
+/* ===== Review Mode ===== */
+.review-progress { font-size: 0.75em; color: var(--muted); white-space: nowrap; }
+#reviewBtn { background: var(--accent); color: #fff; border: none; font-weight: 600; padding: 7px 16px; position: relative; }
+#reviewBtn:hover { opacity: 0.85; }
+#reviewBtn .due-badge { position: absolute; top: -6px; right: -6px; background: #dc2626; color: #fff; font-size: 0.65em; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+/* Sidebar review stats */
+.review-stats { margin-bottom: 8px; }
+.rs-row { display: flex; justify-content: space-between; font-size: 0.78em; padding: 3px 0; color: var(--muted); }
+.rs-val { font-weight: 600; color: var(--text); }
+
+/* Review overlay */
+.review-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; backdrop-filter: blur(4px); }
+.review-overlay.active { display: flex; align-items: center; justify-content: center; }
+.review-container { width: 100%; max-width: 600px; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.review-topbar { display: flex; align-items: center; gap: 12px; }
+.review-close { cursor: pointer; font-size: 1.2em; color: #fff; padding: 4px 8px; border-radius: 4px; }
+.review-close:hover { background: rgba(255,255,255,0.15); }
+.review-progress-bar { flex: 1; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; overflow: hidden; }
+.review-progress-fill { height: 100%; background: #4ade80; border-radius: 2px; transition: width 0.2s; }
+.review-counter { font-size: 0.82em; color: #fff; font-weight: 600; white-space: nowrap; }
+
+/* Flashcard */
+.review-card { perspective: 1000px; cursor: pointer; }
+.review-card-inner { position: relative; width: 100%; min-height: 220px; transition: transform 0.4s; transform-style: preserve-3d; }
+.review-card-inner.flipped { transform: rotateY(180deg); }
+.review-card-front, .review-card-back { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.review-card-front { background: #fff; color: #222; text-align: center; gap: 16px; z-index: 2; }
+[data-theme="dark"] .review-card-front { background: #2a2a2a; color: #ddd; }
+.review-card-back { background: #fff; color: #222; transform: rotateY(180deg); overflow-y: auto; gap: 10px; font-size: 0.88em; line-height: 1.6; padding: 20px 24px; }
+[data-theme="dark"] .review-card-back { background: #2a2a2a; color: #ddd; }
+.rcf-badges { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.rcf-badges .badge { font-size: 0.75em; }
+.rcf-quote { font-size: 1.3em; font-style: italic; font-weight: 500; line-height: 1.5; max-width: 480px; }
+.rcf-tap { font-size: 0.75em; color: #999; margin-top: 8px; }
+.rcb-context { color: #888; font-size: 0.85em; font-style: italic; }
+.rcb-explanation { line-height: 1.7; }
+.rcb-examples { margin-top: 6px; }
+.rcb-examples ul { margin: 4px 0 0 18px; }
+.rcb-examples li { margin: 2px 0; font-style: italic; }
+.rcb-related { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+
+/* Rating buttons */
+.review-actions { display: none; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.review-actions.visible { display: flex; }
+.ra-btn { padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-size: 0.9em; font-weight: 600; color: #fff; transition: transform 0.1s; }
+.ra-btn:active { transform: scale(0.95); }
+.ra-again { background: #dc2626; }
+.ra-hard { background: #d97706; }
+.ra-good { background: #2563eb; }
+.ra-easy { background: #16a34a; }
+.review-nav { display: flex; justify-content: space-between; align-items: center; }
+.ra-nav { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.82em; }
+.ra-nav:hover { background: rgba(255,255,255,0.2); }
+.review-due-info { font-size: 0.75em; color: rgba(255,255,255,0.5); }
+.review-shortcuts { display: flex; gap: 16px; justify-content: center; font-size: 0.68em; color: rgba(255,255,255,0.3); }
+.review-done { text-align: center; color: #fff; }
+.review-done h2 { font-size: 1.5em; margin-bottom: 8px; }
+.review-done p { color: rgba(255,255,255,0.6); font-size: 0.9em; }
+</style>
+</head>
+<body>
+<div class="topbar">
+    <h1>S01E08</h1>
+    <span class="ep">Great Expectations</span>
+    <span class="spacer"></span>
+    <span class="stats">
+        <span class="stat stat-u">Your notes 17</span>
+        <span class="stat stat-a">AI found 0</span>
+    </span>
+    <span class="review-progress" id="reviewProgress" title="Review progress"></span>
+    <button id="reviewBtn" onclick="startReview()" title="Start flashcard review">🎯 Review</button>
+    <input type="text" id="search" placeholder="Filter..." oninput="filter()">
+    <a href="index.html" class="btn">← Index</a>
+    <button onclick="toggleTheme()" id="themeBtn">Dark</button>
+</div>
+
+<div class="layout">
+<nav class="sidebar">
+    <div class="filter-row">
+        <button class="filter-chip active" onclick="filterBy('all', this)">All</button>
+        <button class="filter-chip" onclick="filterBy('user', this)">Notes</button>
+        <button class="filter-chip" onclick="filterBy('ai', this)">AI</button>
+    </div>
+    <h4>📊 Review Stats</h4>
+    <div class="review-stats" id="reviewStats">
+        <div class="rs-row"><span>Mastered</span><span class="rs-val" id="rsMastered">-</span></div>
+        <div class="rs-row"><span>Learning</span><span class="rs-val" id="rsLearning">-</span></div>
+        <div class="rs-row"><span>Due today</span><span class="rs-val" id="rsDue">-</span></div>
+        <div class="rs-row"><span>Streak</span><span class="rs-val" id="rsStreak">-</span></div>
+    </div>
+    <h4>Scenes</h4>
+    <ul><li data-scene="Dunphy-house-—-anniversary-morning"><a href="#Dunphy-house-—-anniversary-morning">Dunphy house — anniversary morning <span class="count">17</span></a></li></ul>
+</nav>
+
+<main class="main">
+    
+            <section id="Dunphy-house-—-anniversary-morning" class="scene">
+                <h3>Dunphy house — anniversary morning</h3>
+                <div class="points">
+            <div class="point user" data-source="user" data-index="0" data-quote="Hey!" data-ytquery="Hey! tv show scene" data-point='{"quote": "Hey!", "category": "phrase", "frequency": "high", "context": "Gloria greets the Dunphys at the door — a casual, friendly hello", "explanation": "The user&#39;s note beautifully captures the tone of a casual visit — &#39;pop over&#39;, &#39;drop by&#39;, &#39;swing by&#39;. In English, &#39;Hey!&#39; isn&#39;t just a greeting; it signals a relaxed, uninvited-but-welcome visit. (顺路串门打招呼) It&#39;s warmer than &#39;Hello&#39; and less formal than &#39;Hi&#39;. Cluster: &#39;Hey, what&#39;s up?&#39; / &#39;Hey, come on in!&#39; / &#39;Hey there!&#39;", "examples": ["Hey! I was just in the neighborhood and thought I&#39;d drop by.", "Hey! Long time no see — come on in, make yourself at home.", "Hey there! I brought some cookies — hope I&#39;m not interrupting."], "related": ["drop by", "swing by", "pop in", "come over", "stop by"], "formality": "casual", "source": "user"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-user">Your note</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-high">high</span>
+                    </div>
+                    <div class="point-quote">"Hey!"</div>
+                    <div class="point-hint">The user's note beautifully captures the tone of a casual visit — 'pop over', 'd...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Gloria greets the Dunphys at the door — a casual, friendly hello</div>
+                    <div class="detail-explanation">The user's note beautifully captures the tone of a casual visit — 'pop over', 'drop by', 'swing by'. In English, 'Hey!' isn't just a greeting; it signals a relaxed, uninvited-but-welcome visit. (顺路串门打招呼) It's warmer than 'Hello' and less formal than 'Hi'. Cluster: 'Hey, what's up?' / 'Hey, come on in!' / 'Hey there!'</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>Hey! I was just in the neighborhood and thought I'd drop by.</li><li>Hey! Long time no see — come on in, make yourself at home.</li><li>Hey there! I brought some cookies — hope I'm not interrupting.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">drop by</span><span class="tag">swing by</span><span class="tag">pop in</span><span class="tag">come over</span><span class="tag">stop by</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point user" data-source="user" data-index="1" data-quote="be brewing" data-ytquery="be brewing tv show scene" data-point='{"quote": "be brewing", "category": "phrase", "frequency": "medium", "context": "Claire narrates a romantic memory — &#39;a storm was brewing in my heart&#39;", "explanation": "A vivid metaphor for something unpleasant or intense building up. &#39;Brewing&#39; literally means making coffee/beer, but here it means &#39;about to happen&#39;. (风暴/麻烦正在酝酿) It&#39;s almost always used for negative things — trouble, storms, conflict. Cluster: &#39;There&#39;s something brewing&#39; / &#39;Trouble is brewing&#39; / &#39;A storm is brewing&#39;.", "examples": ["I can tell there&#39;s trouble brewing between them — they&#39;ve been arguing all week.", "A storm is brewing outside — we should head home.", "There&#39;s something brewing in the office; the boss has been in meetings all day."], "related": ["simmering", "looming", "brewing up", "in the air", "on the horizon"], "formality": "informal", "source": "user"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-user">Your note</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-medium">medium</span>
+                    </div>
+                    <div class="point-quote">"be brewing"</div>
+                    <div class="point-hint">A vivid metaphor for something unpleasant or intense building up. 'Brewing' lite...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Claire narrates a romantic memory — 'a storm was brewing in my heart'</div>
+                    <div class="detail-explanation">A vivid metaphor for something unpleasant or intense building up. 'Brewing' literally means making coffee/beer, but here it means 'about to happen'. (风暴/麻烦正在酝酿) It's almost always used for negative things — trouble, storms, conflict. Cluster: 'There's something brewing' / 'Trouble is brewing' / 'A storm is brewing'.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>I can tell there's trouble brewing between them — they've been arguing all week.</li><li>A storm is brewing outside — we should head home.</li><li>There's something brewing in the office; the boss has been in meetings all day.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">simmering</span><span class="tag">looming</span><span class="tag">brewing up</span><span class="tag">in the air</span><span class="tag">on the horizon</span></div>
+                    <div class="detail-meta">informal</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point user" data-source="user" data-index="2" data-quote="There’s trouble brewing in the office." data-ytquery="There’s trouble brewing in the office. tv show scene" data-point='{"quote": "There’s trouble brewing in the office.", "category": "vocabulary", "frequency": "medium", "context": "User&#39;s example sentence showing the expression in context", "explanation": "A classic example of &#39;be brewing&#39; in action. &#39;Trouble brewing&#39; is a fixed phrase — you can&#39;t say &#39;trouble is making coffee&#39;. (办公室里要有麻烦了) It&#39;s idiomatic: brewing = slowly developing, like a storm or conflict. The image is of something unseen but growing.", "examples": ["There&#39;s trouble brewing in the office — the team is split on the new policy.", "I sensed trouble brewing when she didn&#39;t reply to my text.", "Political trouble is brewing in that country; protests are starting."], "related": ["stirring up trouble", "simmering conflict", "looming crisis", "building tension"], "formality": "informal", "source": "user"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-user">Your note</span>
+                        <span class="cat">📖 vocabulary</span>
+                        <span class="freq freq-medium">medium</span>
+                    </div>
+                    <div class="point-quote">"There’s trouble brewing in the office."</div>
+                    <div class="point-hint">A classic example of 'be brewing' in action. 'Trouble brewing' is a fixed phrase...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">User's example sentence showing the expression in context</div>
+                    <div class="detail-explanation">A classic example of 'be brewing' in action. 'Trouble brewing' is a fixed phrase — you can't say 'trouble is making coffee'. (办公室里要有麻烦了) It's idiomatic: brewing = slowly developing, like a storm or conflict. The image is of something unseen but growing.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>There's trouble brewing in the office — the team is split on the new policy.</li><li>I sensed trouble brewing when she didn't reply to my text.</li><li>Political trouble is brewing in that country; protests are starting.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">stirring up trouble</span><span class="tag">simmering conflict</span><span class="tag">looming crisis</span><span class="tag">building tension</span></div>
+                    <div class="detail-meta">informal</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point user" data-source="user" data-index="3" data-quote="b) if a storm is brewing, it will happen soon 〔暴风雨〕即将来临" data-ytquery="b) if a storm is brewing, it will happen soon 〔暴风雨〕即将来临 tv show scene" data-point='{"quote": "b) if a storm is brewing, it will happen soon 〔暴风雨〕即将来临", "category": "culture", "frequency": "medium", "context": "User&#39;s dictionary-style note on the idiom", "explanation": "This is the literal origin of the metaphor. A storm brewing = dark clouds gathering, rain coming. (暴风雨即将来临) In daily life, it&#39;s used for any tense situation about to explode. The weather meaning is literal; the emotional meaning is figurative. Both are common.", "examples": ["A storm is brewing — look at those dark clouds.", "I can feel a storm brewing in their marriage; they barely talk anymore.", "A political storm is brewing after that scandal broke."], "related": ["looming", "on the horizon", "in the air", "gathering", "building up"], "formality": "informal", "source": "user"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-user">Your note</span>
+                        <span class="cat">🇺🇸 culture</span>
+                        <span class="freq freq-medium">medium</span>
+                    </div>
+                    <div class="point-quote">"b) if a storm is brewing, it will happen soon 〔暴风雨〕即将来临"</div>
+                    <div class="point-hint">This is the literal origin of the metaphor. A storm brewing = dark clouds gather...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">User's dictionary-style note on the idiom</div>
+                    <div class="detail-explanation">This is the literal origin of the metaphor. A storm brewing = dark clouds gathering, rain coming. (暴风雨即将来临) In daily life, it's used for any tense situation about to explode. The weather meaning is literal; the emotional meaning is figurative. Both are common.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>A storm is brewing — look at those dark clouds.</li><li>I can feel a storm brewing in their marriage; they barely talk anymore.</li><li>A political storm is brewing after that scandal broke.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">looming</span><span class="tag">on the horizon</span><span class="tag">in the air</span><span class="tag">gathering</span><span class="tag">building up</span></div>
+                    <div class="detail-meta">informal</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point user" data-source="user" data-index="4" data-quote="Put something over on someone" data-ytquery="Put something over on someone tv show scene" data-point='{"quote": "Put something over on someone", "category": "phrase", "frequency": "low", "context": "Jay tells Gloria that Haley tried to trick him — &#39;You try to put something over on me, you&#39;re gonna lose&#39;", "explanation": "A classic American idiom meaning &#39;to trick or deceive someone&#39;. (耍花招骗人) It&#39;s informal and slightly old-fashioned, but still in use. The &#39;over on&#39; part is fixed — you can&#39;t say &#39;put something over someone&#39;. It implies a clever scheme that failed.", "examples": ["I thought I could put one over on my teacher, but she caught me.", "He tried to put something over on the boss, but the boss saw right through it.", "You can&#39;t put anything over on my grandma — she&#39;s too sharp."], "related": ["pull a fast one", "take someone for a ride", "play a trick on", "con", "trick"], "formality": "informal", "source": "user"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-user">Your note</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-low">low</span>
+                    </div>
+                    <div class="point-quote">"Put something over on someone"</div>
+                    <div class="point-hint">A classic American idiom meaning 'to trick or deceive someone'. (耍花招骗人) It's inf...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Jay tells Gloria that Haley tried to trick him — 'You try to put something over on me, you're gonna lose'</div>
+                    <div class="detail-explanation">A classic American idiom meaning 'to trick or deceive someone'. (耍花招骗人) It's informal and slightly old-fashioned, but still in use. The 'over on' part is fixed — you can't say 'put something over someone'. It implies a clever scheme that failed.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>I thought I could put one over on my teacher, but she caught me.</li><li>He tried to put something over on the boss, but the boss saw right through it.</li><li>You can't put anything over on my grandma — she's too sharp.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">pull a fast one</span><span class="tag">take someone for a ride</span><span class="tag">play a trick on</span><span class="tag">con</span><span class="tag">trick</span></div>
+                    <div class="detail-meta">informal</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point user" data-source="user" data-index="5" data-quote="Fix that step." data-ytquery="Fix that step. tv show scene" data-point='{"quote": "Fix that step.", "category": "phrase", "frequency": "medium", "context": "Phil walks in and says to the step, then greets Claire — morning joke", "explanation": "A classic Phil move — talking to an object as if it&#39;s a person. &#39;Fix that step&#39; is a command to the step itself (幽默地命令台阶修好自己). It&#39;s not a real instruction; it&#39;s a playful way to acknowledge a problem. Shows Phil&#39;s quirky personality.", "examples": ["Fix that leaky faucet! (said to the faucet while walking past)", "Be good, car! (patting the hood)", "Stop making that noise, printer! (said to a jammed printer)"], "related": ["talk to objects", "personification", "quirky humor"], "formality": "casual", "source": "user"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-user">Your note</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-medium">medium</span>
+                    </div>
+                    <div class="point-quote">"Fix that step."</div>
+                    <div class="point-hint">A classic Phil move — talking to an object as if it's a person. 'Fix that step' ...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Phil walks in and says to the step, then greets Claire — morning joke</div>
+                    <div class="detail-explanation">A classic Phil move — talking to an object as if it's a person. 'Fix that step' is a command to the step itself (幽默地命令台阶修好自己). It's not a real instruction; it's a playful way to acknowledge a problem. Shows Phil's quirky personality.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>Fix that leaky faucet! (said to the faucet while walking past)</li><li>Be good, car! (patting the hood)</li><li>Stop making that noise, printer! (said to a jammed printer)</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">talk to objects</span><span class="tag">personification</span><span class="tag">quirky humor</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point user" data-source="user" data-index="6" data-quote="You're impossible to buy for." data-ytquery="Youre impossible to buy for. tv show scene" data-point='{"quote": "You&#39;re impossible to buy for.", "category": "phrase", "frequency": "high", "context": "Claire says this to Phil after he doesn&#39;t like the coupon gift — defensive explanation", "explanation": "A classic social move: shifting blame to the other person. &#39;You&#39;re impossible to buy for&#39; = &#39;It&#39;s your fault I gave a bad gift&#39;. (你太难买礼物了) It&#39;s a polite way to say &#39;you don&#39;t appreciate my effort&#39;. Extremely common in gift-giving contexts.", "examples": ["I got you socks again — you&#39;re impossible to buy for!", "My dad is impossible to buy for; he already has everything.", "She&#39;s impossible to buy for because she never tells me what she wants."], "related": ["hard to shop for", "difficult to please", "picky", "fussy"], "formality": "informal", "source": "user"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-user">Your note</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-high">high</span>
+                    </div>
+                    <div class="point-quote">"You're impossible to buy for."</div>
+                    <div class="point-hint">A classic social move: shifting blame to the other person. 'You're impossible to...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Claire says this to Phil after he doesn't like the coupon gift — defensive explanation</div>
+                    <div class="detail-explanation">A classic social move: shifting blame to the other person. 'You're impossible to buy for' = 'It's your fault I gave a bad gift'. (你太难买礼物了) It's a polite way to say 'you don't appreciate my effort'. Extremely common in gift-giving contexts.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>I got you socks again — you're impossible to buy for!</li><li>My dad is impossible to buy for; he already has everything.</li><li>She's impossible to buy for because she never tells me what she wants.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">hard to shop for</span><span class="tag">difficult to please</span><span class="tag">picky</span><span class="tag">fussy</span></div>
+                    <div class="detail-meta">informal</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point user" data-source="user" data-index="7" data-quote="Take it down a notch, Jethro." data-ytquery="Take it down a notch, Jethro. tv show scene" data-point='{"quote": "Take it down a notch, Jethro.", "category": "phrase", "frequency": "medium", "context": "Jay tells Manny to calm down after he flirts with Haley — grandfatherly warning", "explanation": "A brilliant mix of idiom and cultural reference. &#39;Take it down a notch&#39; = calm down, reduce intensity. &#39;Jethro&#39; is a reference to the Beverly Hillbillies — a country bumpkin. (冷静点，乡下小子) Jay calls Manny &#39;Jethro&#39; to mock his awkward flirting as unsophisticated.", "examples": ["Hey, take it down a notch — you&#39;re being too loud.", "She was bragging so much I wanted to tell her to take it down a notch.", "He called his friend &#39;Jethro&#39; as a joke when he tried to show off."], "related": ["calm down", "dial it back", "cool it", "simmer down", "easy there"], "formality": "informal", "source": "user"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-user">Your note</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-medium">medium</span>
+                    </div>
+                    <div class="point-quote">"Take it down a notch, Jethro."</div>
+                    <div class="point-hint">A brilliant mix of idiom and cultural reference. 'Take it down a notch' = calm d...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Jay tells Manny to calm down after he flirts with Haley — grandfatherly warning</div>
+                    <div class="detail-explanation">A brilliant mix of idiom and cultural reference. 'Take it down a notch' = calm down, reduce intensity. 'Jethro' is a reference to the Beverly Hillbillies — a country bumpkin. (冷静点，乡下小子) Jay calls Manny 'Jethro' to mock his awkward flirting as unsophisticated.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>Hey, take it down a notch — you're being too loud.</li><li>She was bragging so much I wanted to tell her to take it down a notch.</li><li>He called his friend 'Jethro' as a joke when he tried to show off.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">calm down</span><span class="tag">dial it back</span><span class="tag">cool it</span><span class="tag">simmer down</span><span class="tag">easy there</span></div>
+                    <div class="detail-meta">informal</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point user" data-source="user" data-index="8" data-quote="Read it and weep, Phil!" data-ytquery="Read it and weep, Phil! tv show scene" data-point='{"quote": "Read it and weep, Phil!", "category": "phrase", "frequency": "medium", "context": "Claire reveals she hired a musician for Phil — triumphant announcement", "explanation": "A playful taunt meaning &#39;Look at this amazing thing I did — be jealous&#39;. (羡慕嫉妒恨吧) It&#39;s competitive but friendly. The &#39;it&#39; is something impressive you&#39;ve achieved. Often used in games or when revealing a surprise.", "examples": ["I got the last slice of pizza — read it and weep!", "She aced the test and sent a photo to her friends: &#39;Read it and weep!&#39;", "He showed off his new car with a grin: &#39;Read it and weep, guys.&#39;"], "related": ["eat your heart out", "top that", "check this out", "take that"], "formality": "informal", "source": "user"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-user">Your note</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-medium">medium</span>
+                    </div>
+                    <div class="point-quote">"Read it and weep, Phil!"</div>
+                    <div class="point-hint">A playful taunt meaning 'Look at this amazing thing I did — be jealous'. (羡慕嫉妒恨吧...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Claire reveals she hired a musician for Phil — triumphant announcement</div>
+                    <div class="detail-explanation">A playful taunt meaning 'Look at this amazing thing I did — be jealous'. (羡慕嫉妒恨吧) It's competitive but friendly. The 'it' is something impressive you've achieved. Often used in games or when revealing a surprise.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>I got the last slice of pizza — read it and weep!</li><li>She aced the test and sent a photo to her friends: 'Read it and weep!'</li><li>He showed off his new car with a grin: 'Read it and weep, guys.'</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">eat your heart out</span><span class="tag">top that</span><span class="tag">check this out</span><span class="tag">take that</span></div>
+                    <div class="detail-meta">informal</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point user" data-source="user" data-index="9" data-quote="This is first-child syndrome." data-ytquery="This is first-child syndrome. tv show scene" data-point='{"quote": "This is first-child syndrome.", "category": "phrase", "frequency": "low", "context": "Cameron explains Sal&#39;s jealousy — &#39;She&#39;s like a first child jealous of the new baby&#39;", "explanation": "A made-up but recognizable phrase. &#39;First-child syndrome&#39; = when an older child gets jealous of a new sibling. (老大综合征) Cameron applies it to Sal — she&#39;s acting like a jealous older sibling to Lily. It&#39;s a joke, but the phrase is understandable in context.", "examples": ["My dog has first-child syndrome — he gets jealous when I pet the cat.", "She&#39;s showing first-child syndrome now that her best friend has a new boyfriend.", "It&#39;s classic first-child syndrome: he wants all the attention."], "related": ["jealousy", "sibling rivalry", "acting out", "attention-seeking"], "formality": "informal", "source": "user"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-user">Your note</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-low">low</span>
+                    </div>
+                    <div class="point-quote">"This is first-child syndrome."</div>
+                    <div class="point-hint">A made-up but recognizable phrase. 'First-child syndrome' = when an older child ...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Cameron explains Sal's jealousy — 'She's like a first child jealous of the new baby'</div>
+                    <div class="detail-explanation">A made-up but recognizable phrase. 'First-child syndrome' = when an older child gets jealous of a new sibling. (老大综合征) Cameron applies it to Sal — she's acting like a jealous older sibling to Lily. It's a joke, but the phrase is understandable in context.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>My dog has first-child syndrome — he gets jealous when I pet the cat.</li><li>She's showing first-child syndrome now that her best friend has a new boyfriend.</li><li>It's classic first-child syndrome: he wants all the attention.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">jealousy</span><span class="tag">sibling rivalry</span><span class="tag">acting out</span><span class="tag">attention-seeking</span></div>
+                    <div class="detail-meta">informal</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point user" data-source="user" data-index="10" data-quote="Put a little spittle." data-ytquery="Put a little spittle. tv show scene" data-point='{"quote": "Put a little spittle.", "category": "phrase", "frequency": "medium", "context": "Mitchell points out that Cameron has a bit of spit on his face — affectionate", "explanation": "A tiny but perfect slice of domestic life. &#39;Spittle&#39; = spit. &#39;Put a little spittle&#39; = &#39;You have a bit of spit on your face&#39;. (你脸上有点口水) It&#39;s the kind of small, intimate observation couples make. The humor is in the casualness — it&#39;s not gross, just normal.", "examples": ["You&#39;ve got a little something on your chin — just there.", "She wiped a bit of food off his face without even thinking.", "He had a crumb on his shirt; I pointed it out without a second thought."], "related": ["a little something", "a speck", "a crumb", "a bit of"], "formality": "informal", "source": "user"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-user">Your note</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-medium">medium</span>
+                    </div>
+                    <div class="point-quote">"Put a little spittle."</div>
+                    <div class="point-hint">A tiny but perfect slice of domestic life. 'Spittle' = spit. 'Put a little spitt...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Mitchell points out that Cameron has a bit of spit on his face — affectionate</div>
+                    <div class="detail-explanation">A tiny but perfect slice of domestic life. 'Spittle' = spit. 'Put a little spittle' = 'You have a bit of spit on your face'. (你脸上有点口水) It's the kind of small, intimate observation couples make. The humor is in the casualness — it's not gross, just normal.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>You've got a little something on your chin — just there.</li><li>She wiped a bit of food off his face without even thinking.</li><li>He had a crumb on his shirt; I pointed it out without a second thought.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">a little something</span><span class="tag">a speck</span><span class="tag">a crumb</span><span class="tag">a bit of</span></div>
+                    <div class="detail-meta">informal</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point user" data-source="user" data-index="11" data-quote="You're taking this too personally." data-ytquery="Youre taking this too personally. tv show scene" data-point='{"quote": "You&#39;re taking this too personally.", "category": "phrase", "frequency": "high", "context": "Gloria tells Jay he&#39;s overreacting to Haley wanting to go to a party", "explanation": "A classic conflict-phrase. &#39;Taking something personally&#39; = interpreting something as a personal attack when it isn&#39;t. (你太往心里去了) Gloria is saying: Haley&#39;s desire to party isn&#39;t about rejecting you, Jay. It&#39;s a mature, de-escalating move.", "examples": ["Don&#39;t take it personally — she&#39;s just in a bad mood.", "He took my criticism personally and got defensive.", "I know you&#39;re upset, but try not to take it personally; it&#39;s not about you."], "related": ["get defensive", "take offense", "be thin-skinned", "overreact", "make it about yourself"], "formality": "informal", "source": "user"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-user">Your note</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-high">high</span>
+                    </div>
+                    <div class="point-quote">"You're taking this too personally."</div>
+                    <div class="point-hint">A classic conflict-phrase. 'Taking something personally' = interpreting somethin...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Gloria tells Jay he's overreacting to Haley wanting to go to a party</div>
+                    <div class="detail-explanation">A classic conflict-phrase. 'Taking something personally' = interpreting something as a personal attack when it isn't. (你太往心里去了) Gloria is saying: Haley's desire to party isn't about rejecting you, Jay. It's a mature, de-escalating move.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>Don't take it personally — she's just in a bad mood.</li><li>He took my criticism personally and got defensive.</li><li>I know you're upset, but try not to take it personally; it's not about you.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">get defensive</span><span class="tag">take offense</span><span class="tag">be thin-skinned</span><span class="tag">overreact</span><span class="tag">make it about yourself</span></div>
+                    <div class="detail-meta">informal</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point user" data-source="user" data-index="12" data-quote="You try to put something over on me, you're gonna lose." data-ytquery="You try to put something over on me, youre gonna lose. tv show scene" data-point='{"quote": "You try to put something over on me, you&#39;re gonna lose.", "category": "phrase", "frequency": "low", "context": "Jay warns Gloria that Haley can&#39;t trick him — he&#39;s been there before", "explanation": "This is the full sentence from the user&#39;s earlier annotation. &#39;Put something over on someone&#39; = trick/deceive. &#39;You&#39;re gonna lose&#39; = I&#39;ll catch you. (想骗我？你输定了) It&#39;s a warning, but also a boast: Jay is confident in his experience. Very paternal.", "examples": ["Nice try, but you can&#39;t put one over on me — I know that trick.", "She thought she could put something over on the teacher, but the teacher saw right through it.", "If you try to put something over on your mom, she&#39;ll figure it out immediately."], "related": ["pull a fast one", "take someone for a ride", "con", "trick", "fool"], "formality": "informal", "source": "user"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-user">Your note</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-low">low</span>
+                    </div>
+                    <div class="point-quote">"You try to put something over on me, you're gonna lose."</div>
+                    <div class="point-hint">This is the full sentence from the user's earlier annotation. 'Put something ove...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Jay warns Gloria that Haley can't trick him — he's been there before</div>
+                    <div class="detail-explanation">This is the full sentence from the user's earlier annotation. 'Put something over on someone' = trick/deceive. 'You're gonna lose' = I'll catch you. (想骗我？你输定了) It's a warning, but also a boast: Jay is confident in his experience. Very paternal.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>Nice try, but you can't put one over on me — I know that trick.</li><li>She thought she could put something over on the teacher, but the teacher saw right through it.</li><li>If you try to put something over on your mom, she'll figure it out immediately.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">pull a fast one</span><span class="tag">take someone for a ride</span><span class="tag">con</span><span class="tag">trick</span><span class="tag">fool</span></div>
+                    <div class="detail-meta">informal</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point user" data-source="user" data-index="13" data-quote="Who knows how many nights like this I got left?" data-ytquery="Who knows how many nights like this I got left? tv show scene" data-point='{"quote": "Who knows how many nights like this I got left?", "category": "phrase", "frequency": "medium", "context": "Jay says this as a guilt-trippy justification for keeping the kids at his house", "explanation": "A classic emotional manipulation — using mortality to get what you want. (谁知道我还能有几次这样的夜晚) It&#39;s a joke because Jay is healthy, but he plays the &#39;old man&#39; card. The phrase &#39;who knows how many... I got left&#39; is a formula for creating urgency or guilt.", "examples": ["Who knows how many more Christmases we&#39;ll have together? Let&#39;s make it special.", "He said, &#39;Who knows how many more trips I can take?&#39; to get us to agree.", "She used the &#39;who knows how much time I have left&#39; line to get out of work."], "related": ["play the age card", "guilt trip", "mortality card", "make the most of it"], "formality": "informal", "source": "user"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-user">Your note</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-medium">medium</span>
+                    </div>
+                    <div class="point-quote">"Who knows how many nights like this I got left?"</div>
+                    <div class="point-hint">A classic emotional manipulation — using mortality to get what you want. (谁知道我还能...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Jay says this as a guilt-trippy justification for keeping the kids at his house</div>
+                    <div class="detail-explanation">A classic emotional manipulation — using mortality to get what you want. (谁知道我还能有几次这样的夜晚) It's a joke because Jay is healthy, but he plays the 'old man' card. The phrase 'who knows how many... I got left' is a formula for creating urgency or guilt.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>Who knows how many more Christmases we'll have together? Let's make it special.</li><li>He said, 'Who knows how many more trips I can take?' to get us to agree.</li><li>She used the 'who knows how much time I have left' line to get out of work.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">play the age card</span><span class="tag">guilt trip</span><span class="tag">mortality card</span><span class="tag">make the most of it</span></div>
+                    <div class="detail-meta">informal</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point user" data-source="user" data-index="14" data-quote="I will track you down." data-ytquery="I will track you down. tv show scene" data-point='{"quote": "I will track you down.", "category": "phrase", "frequency": "medium", "context": "Jay says this to Haley as a playful threat — &#39;I&#39;ll find you if you&#39;re late&#39;", "explanation": "A half-joking, half-serious parental threat. &#39;Track you down&#39; = find you wherever you are. (我会找到你的) It&#39;s a control move disguised as a joke — Jay wants Haley to know he&#39;s watching, but he says it with a smile. Very dad-like.", "examples": ["If you&#39;re not home by midnight, I will track you down.", "My dad always said he&#39;d track me down if I didn&#39;t call.", "She joked, &#39;I&#39;ll track you down if you forget my birthday.&#39;"], "related": ["find you", "hunt you down", "come after you", "track you to the ends of the earth"], "formality": "informal", "source": "user"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-user">Your note</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-medium">medium</span>
+                    </div>
+                    <div class="point-quote">"I will track you down."</div>
+                    <div class="point-hint">A half-joking, half-serious parental threat. 'Track you down' = find you whereve...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Jay says this to Haley as a playful threat — 'I'll find you if you're late'</div>
+                    <div class="detail-explanation">A half-joking, half-serious parental threat. 'Track you down' = find you wherever you are. (我会找到你的) It's a control move disguised as a joke — Jay wants Haley to know he's watching, but he says it with a smile. Very dad-like.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>If you're not home by midnight, I will track you down.</li><li>My dad always said he'd track me down if I didn't call.</li><li>She joked, 'I'll track you down if you forget my birthday.'</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">find you</span><span class="tag">hunt you down</span><span class="tag">come after you</span><span class="tag">track you to the ends of the earth</span></div>
+                    <div class="detail-meta">informal</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point user" data-source="user" data-index="15" data-quote="You just gave us a new song." data-ytquery="You just gave us a new song. tv show scene" data-point='{"quote": "You just gave us a new song.", "category": "phrase", "frequency": "low", "context": "Phil tells Claire that the failed anniversary gift actually created a new meaningful memory", "explanation": "A beautiful reframing. &#39;Gave us a new song&#39; = created a new shared memory. (你给了我们一首新歌) It&#39;s not literal — it means turning a disaster into a positive. Phil is showing emotional intelligence: instead of complaining, he finds the silver lining.", "examples": ["We had a terrible vacation, but at least it gave us a funny story.", "The burnt dinner gave us a new tradition — ordering pizza and laughing about it.", "Sometimes a failed plan gives you a better memory than a perfect one."], "related": ["silver lining", "make the best of it", "turn lemons into lemonade", "new memory"], "formality": "informal", "source": "user"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-user">Your note</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-low">low</span>
+                    </div>
+                    <div class="point-quote">"You just gave us a new song."</div>
+                    <div class="point-hint">A beautiful reframing. 'Gave us a new song' = created a new shared memory. (你给了我...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Phil tells Claire that the failed anniversary gift actually created a new meaningful memory</div>
+                    <div class="detail-explanation">A beautiful reframing. 'Gave us a new song' = created a new shared memory. (你给了我们一首新歌) It's not literal — it means turning a disaster into a positive. Phil is showing emotional intelligence: instead of complaining, he finds the silver lining.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>We had a terrible vacation, but at least it gave us a funny story.</li><li>The burnt dinner gave us a new tradition — ordering pizza and laughing about it.</li><li>Sometimes a failed plan gives you a better memory than a perfect one.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">silver lining</span><span class="tag">make the best of it</span><span class="tag">turn lemons into lemonade</span><span class="tag">new memory</span></div>
+                    <div class="detail-meta">informal</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point user" data-source="user" data-index="16" data-quote="Don't fight it, Haley. They never grow up." data-ytquery="Dont fight it, Haley. They never grow up. tv show scene" data-point='{"quote": "Don&#39;t fight it, Haley. They never grow up.", "category": "phrase", "frequency": "medium", "context": "Gloria tells Haley to accept that men are childish — about Dylan and Jay watching cowboys", "explanation": "A universal female wisdom: men retain boyish enthusiasm forever. (别挣扎了，他们永远长不大) &#39;Don&#39;t fight it&#39; = accept reality. &#39;They never grow up&#39; = men always have childlike interests. It&#39;s a resigned, affectionate observation, not bitter.", "examples": ["My husband still plays video games at 40 — they never grow up.", "Don&#39;t fight it — he&#39;ll always want to watch action movies.", "She sighed and said, &#39;They never grow up,&#39; as her boyfriend bought another toy."], "related": ["boys will be boys", "just let them be", "pick your battles", "accept it"], "formality": "informal", "source": "user"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-user">Your note</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-medium">medium</span>
+                    </div>
+                    <div class="point-quote">"Don't fight it, Haley. They never grow up."</div>
+                    <div class="point-hint">A universal female wisdom: men retain boyish enthusiasm forever. (别挣扎了，他们永远长不大) ...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Gloria tells Haley to accept that men are childish — about Dylan and Jay watching cowboys</div>
+                    <div class="detail-explanation">A universal female wisdom: men retain boyish enthusiasm forever. (别挣扎了，他们永远长不大) 'Don't fight it' = accept reality. 'They never grow up' = men always have childlike interests. It's a resigned, affectionate observation, not bitter.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>My husband still plays video games at 40 — they never grow up.</li><li>Don't fight it — he'll always want to watch action movies.</li><li>She sighed and said, 'They never grow up,' as her boyfriend bought another toy.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">boys will be boys</span><span class="tag">just let them be</span><span class="tag">pick your battles</span><span class="tag">accept it</span></div>
+                    <div class="detail-meta">informal</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </section>
+            
+</main>
+</div>
+
+<!-- ===== Review Overlay ===== -->
+<div class="review-overlay" id="reviewOverlay">
+    <div class="review-container">
+        <div class="review-topbar">
+            <span class="review-close" onclick="exitReview()" title="Exit review (Esc)">✕</span>
+            <div class="review-progress-bar">
+                <div class="review-progress-fill" id="reviewProgressFill"></div>
+            </div>
+            <span class="review-counter" id="reviewCounter">0/0</span>
+        </div>
+        <div class="review-card" id="reviewCard" onclick="flipCard()">
+            <div class="review-card-inner" id="reviewCardInner">
+                <div class="review-card-front">
+                    <div class="rcf-badges" id="rcfBadges"></div>
+                    <div class="rcf-quote" id="rcfQuote"></div>
+                    <div class="rcf-tap">👆 Tap to reveal</div>
+                </div>
+                <div class="review-card-back">
+                    <div class="rcb-context" id="rcbContext"></div>
+                    <div class="rcb-explanation" id="rcbExplanation"></div>
+                    <div class="rcb-examples" id="rcbExamples"></div>
+                    <div class="rcb-related" id="rcbRelated"></div>
+                </div>
+            </div>
+        </div>
+        <div class="review-actions" id="reviewActions">
+            <button class="ra-btn ra-again" onclick="rateCard(0)" title="Again (key: 1)">🔁 Again</button>
+            <button class="ra-btn ra-hard" onclick="rateCard(1)" title="Hard (key: 2)">😐 Hard</button>
+            <button class="ra-btn ra-good" onclick="rateCard(2)" title="Good (key: 3)">😊 Good</button>
+            <button class="ra-btn ra-easy" onclick="rateCard(3)" title="Easy (key: 4)">😎 Easy</button>
+        </div>
+        <div class="review-nav">
+            <button class="ra-nav" onclick="prevCard()">← Previous</button>
+            <span class="review-due-info" id="reviewDueInfo"></span>
+            <button class="ra-nav" onclick="nextCard()">Next →</button>
+        </div>
+        <div class="review-shortcuts">
+            <span>Space: flip</span><span>1-4: rate</span><span>←→: nav</span><span>Esc: exit</span>
+        </div>
+    </div>
+</div>
+
+<script>
+function togglePoint(summary) {
+    const point = summary.parentElement;
+    const wasOpen = point.classList.contains('open');
+    point.classList.toggle('open');
+
+    // Load video on first expand
+    if (!wasOpen && point.classList.contains('open')) {
+        const videoDiv = point.querySelector('.video-container');
+        if (videoDiv && videoDiv.dataset.loaded === '0') {
+            loadVideo(videoDiv, point.dataset.ytquery);
+        }
+    }
+}
+
+async function loadVideo(container, query) {
+    if (!query) return;
+    container.dataset.loaded = '1';
+    container.innerHTML = '<div class="video-placeholder">Searching video...</div>';
+
+    try {
+        const resp = await fetch('/api/youtube?q=' + encodeURIComponent(query));
+        const data = await resp.json();
+        if (data.videoId) {
+            container.innerHTML = `
+                <div class="video-wrapper">
+                    <iframe src="${data.embedUrl}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    <div class="video-caption">${data.title}</div>
+                </div>`;
+        } else {
+            container.innerHTML = `
+                <div class="video-fallback">
+                    No clip found — <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(query)}" target="_blank">search YouTube</a>
+                </div>`;
+        }
+    } catch (e) {
+        container.innerHTML = `
+            <div class="video-fallback">
+                <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(query)}" target="_blank">🔗 Search on YouTube</a>
+            </div>`;
+    }
+}
+
+// ---- Voice Recording ----
+const recordingState = {};  // key: quote text -> { blob, url }
+
+async function toggleRecord(btn) {
+    const point = btn.closest('.point');
+    const text = point ? point.dataset.quote : '';
+    if (!text) return;
+
+    // If currently recording, stop
+    if (btn.classList.contains('recording')) {
+        stopRecording(btn, text);
+        return;
+    }
+
+    // If has existing recording
+    if (recordingState[text]) {
+        const now = Date.now();
+        // Double-click detection: if last click was within 600ms -> re-record
+        if (btn._lastClick && (now - btn._lastClick) < 600) {
+            clearRecording(btn, text);
+            startRecording(btn, text);
+            return;
+        }
+        btn._lastClick = now;
+        playRecording(btn, text);
+        return;
+    }
+
+    // Start recording
+    startRecording(btn, text);
+}
+
+async function startRecording(btn, text) {
+    // Stop any playing audio
+    if (btn._audio) { btn._audio.pause(); btn._audio = null; }
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+            ? 'audio/webm;codecs=opus' : 'audio/webm';
+        const mediaRecorder = new MediaRecorder(stream, { mimeType });
+        const chunks = [];
+
+        mediaRecorder.ondataavailable = e => chunks.push(e.data);
+        mediaRecorder.onstop = () => {
+            const blob = new Blob(chunks, { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            // Revoke old URL to free memory
+            if (recordingState[text]) URL.revokeObjectURL(recordingState[text].url);
+            recordingState[text] = { blob, url };
+            btn.classList.remove('recording');
+            btn.classList.add('has-recording');
+            btn.title = '▶️ Play · Double-click to re-record';
+            btn.textContent = '▶️';
+            stream.getTracks().forEach(t => t.stop());
+        };
+
+        btn._recorder = mediaRecorder;
+        btn._stream = stream;
+        mediaRecorder.start();
+        btn.classList.add('recording');
+        btn.classList.remove('has-recording');
+        btn.textContent = '⏺️';
+        btn.title = 'Recording... click to stop';
+
+        // Auto-stop after 30 seconds
+        setTimeout(() => {
+            if (btn.classList.contains('recording')) stopRecording(btn, text);
+        }, 30000);
+    } catch (e) {
+        console.log('Microphone unavailable:', e.message);
+        alert('🎤 Microphone access needed. Please allow microphone permissions in browser settings.');
+    }
+}
+
+function stopRecording(btn, text) {
+    if (btn._recorder && btn._recorder.state === 'recording') {
+        btn._recorder.stop();
+    }
+}
+
+function clearRecording(btn, text) {
+    if (recordingState[text]) {
+        URL.revokeObjectURL(recordingState[text].url);
+        delete recordingState[text];
+    }
+    btn.classList.remove('has-recording', 'playing');
+    btn.textContent = '🎤';
+    btn.title = 'Record your voice';
+    btn._lastClick = null;
+    if (btn._audio) { btn._audio.pause(); btn._audio = null; }
+}
+
+function playRecording(btn, text) {
+    const data = recordingState[text];
+    if (!data) return;
+    const audio = new Audio(data.url);
+    btn._audio = audio;
+    btn.textContent = '⏸️';
+    btn.classList.add('playing');
+    audio.onended = () => {
+        btn.textContent = '▶️';
+        btn.classList.remove('playing');
+        btn._audio = null;
+    };
+    audio.onerror = () => {
+        clearRecording(btn, text);
+    };
+    audio.play();
+}
+
+
+function filterBy(type, btn) {
+    document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.point').forEach(p => {
+        if (type === 'all') p.classList.remove('hidden');
+        else if (type === 'user') p.classList.toggle('hidden', !p.classList.contains('user'));
+        else p.classList.toggle('hidden', !p.classList.contains('ai'));
+    });
+    document.querySelectorAll('.scene').forEach(s => {
+        const visible = s.querySelectorAll('.point:not(.hidden)');
+        s.classList.toggle('hidden', visible.length === 0);
+    });
+}
+
+function filter() {
+    const q = document.getElementById('search').value.toLowerCase();
+    document.querySelectorAll('.point').forEach(p => {
+        if (!q) { p.classList.remove('hidden'); return; }
+        p.classList.toggle('hidden', !p.textContent.toLowerCase().includes(q));
+    });
+    document.querySelectorAll('.scene').forEach(s => {
+        const visible = s.querySelectorAll('.point:not(.hidden)');
+        s.classList.toggle('hidden', visible.length === 0);
+    });
+}
+
+function toggleTheme() {
+    const h = document.documentElement;
+    const b = document.getElementById('themeBtn');
+    if (h.getAttribute('data-theme') === 'dark') {
+        h.removeAttribute('data-theme'); b.textContent = 'Dark';
+    } else {
+        h.setAttribute('data-theme', 'dark'); b.textContent = 'Light';
+    }
+    localStorage.setItem('theme', h.getAttribute('data-theme')||'light');
+}
+(function(){
+    if (localStorage.getItem('theme')==='dark'){
+        document.documentElement.setAttribute('data-theme','dark');
+        document.getElementById('themeBtn').textContent='Light';
+    }
+})();
+
+// ===== Review Mode =====
+const TOTAL_POINTS = 17;
+const EPISODE = 'S01E08';
+const STORAGE_KEY = 'mf_review_' + EPISODE;
+let reviewQueue = [];
+let reviewIdx = 0;
+let reviewFlipped = false;
+
+// ---- SM-2 Algorithm ----
+function sm2(ease, interval, rating) {
+    // rating: 0=Again, 1=Hard, 2=Good, 3=Easy
+    if (rating === 0) { interval = 1; ease = Math.max(1.3, ease - 0.20); }
+    else if (rating === 1) { interval = Math.max(1, interval * 1.2); ease = Math.max(1.3, ease - 0.15); }
+    else if (rating === 2) { interval = Math.max(1, interval * ease); }
+    else { interval = Math.max(1, interval * ease * 1.3); ease = Math.min(3.0, ease + 0.15); }
+    return { ease: Math.round(ease * 100) / 100, interval: Math.round(interval) };
+}
+
+function todayStr() { return new Date().toISOString().slice(0,10); }
+
+// ---- Data ----
+function loadData() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { stats: {}, points: {} }; }
+    catch(e) { return { stats: {}, points: {} }; }
+}
+
+function saveData(d) { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
+
+// ---- Stats helpers ----
+function getMasteredCount(d) {
+    return Object.values(d.points).filter(p => p.interval >= 21).length;
+}
+
+function getLearningCount(d) {
+    return Object.values(d.points).filter(p => p.reviews > 0 && p.interval < 21).length;
+}
+
+function getDueCount(d) {
+    const today = todayStr();
+    let count = 0;
+    for (let i = 0; i < TOTAL_POINTS; i++) {
+        const p = d.points[i];
+        if (!p || !p.nextReview || p.nextReview <= today) count++;
+    }
+    return count;
+}
+
+function updateStats() {
+    const d = loadData();
+    const mastered = getMasteredCount(d);
+    const learning = getLearningCount(d);
+    const due = getDueCount(d);
+    const streak = d.stats && d.stats.streak ? d.stats.streak : 0;
+    const totalReviewed = Object.values(d.points).filter(p => p.reviews > 0).length;
+
+    document.getElementById('rsMastered').textContent = mastered;
+    document.getElementById('rsLearning').textContent = learning;
+    document.getElementById('rsDue').textContent = due;
+    document.getElementById('rsStreak').textContent = streak + 'd';
+    document.getElementById('reviewProgress').textContent = totalReviewed + '/' + TOTAL_POINTS + ' reviewed';
+
+    // Due badge on review button
+    const badge = document.getElementById('reviewBtn').querySelector('.due-badge');
+    if (due > 0) {
+        if (!badge) {
+            const b = document.createElement('span');
+            b.className = 'due-badge';
+            b.textContent = due;
+            document.getElementById('reviewBtn').appendChild(b);
+        } else badge.textContent = due;
+    } else if (badge) badge.remove();
+}
+
+// ---- Review Logic ----
+function startReview() {
+    const d = loadData();
+    const today = todayStr();
+
+    // Collect all point indices, sort by: unreviewed first, then overdue first
+    const allIndices = Array.from({length: TOTAL_POINTS}, (_,i) => i);
+    reviewQueue = allIndices.sort((a,b) => {
+        const pa = d.points[a], pb = d.points[b];
+        const aNew = !pa || !pa.reviews ? 0 : 1;
+        const bNew = !pb || !pb.reviews ? 0 : 1;
+        if (aNew !== bNew) return aNew - bNew; // new cards first
+        const aDue = pa && pa.nextReview ? pa.nextReview : '0000';
+        const bDue = pb && pb.nextReview ? pb.nextReview : '0000';
+        return aDue.localeCompare(bDue);
+    });
+
+    if (reviewQueue.length === 0) { alert('No points to review!'); return; }
+
+    reviewIdx = 0;
+    document.getElementById('reviewOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    showCard();
+}
+
+function showCard() {
+    if (reviewIdx >= reviewQueue.length) {
+        finishReview();
+        return;
+    }
+    const idx = reviewQueue[reviewIdx];
+    const el = document.querySelector('.point[data-index="' + idx + '"]');
+    if (!el) { nextCard(); return; }
+
+    let point;
+    try { point = JSON.parse(el.dataset.point.replace(/&#39;/g, "'")); }
+    catch(e) { point = { quote: el.dataset.quote, category: 'phrase', frequency: 'medium', context: '', explanation: '', examples: [], related: [], formality: '', source: 'ai' }; }
+
+    // Front
+    const icon = ({phrase:'💬',vocabulary:'📖',grammar:'📐',culture:'🇺🇸',pronunciation:'🔊',pragmatics:'🎭'})[point.category] || '💡';
+    document.getElementById('rcfBadges').innerHTML = `
+        <span class="badge badge-${point.source === 'user' ? 'user' : 'ai'}">${point.source === 'user' ? 'Your note' : 'AI found'}</span>
+        <span class="cat">${icon} ${point.category}</span>
+        <span class="freq freq-${point.frequency}">${point.frequency}</span>
+    `;
+    document.getElementById('rcfQuote').textContent = '"' + point.quote + '"';
+
+    // Back
+    document.getElementById('rcbContext').textContent = point.context || '';
+    document.getElementById('rcbExplanation').textContent = point.explanation || '';
+    let exHtml = '';
+    if (point.examples && point.examples.length) {
+        exHtml = '<div class="rcb-examples"><span class="label">Examples</span><ul>';
+        point.examples.forEach(e => exHtml += '<li>' + e + '</li>');
+        exHtml += '</ul></div>';
+    }
+    document.getElementById('rcbExamples').innerHTML = exHtml;
+    let relHtml = '';
+    if (point.related && point.related.length) {
+        relHtml = '<div class="rcb-related"><span class="label">See also</span> ';
+        point.related.forEach(r => relHtml += '<span class="tag">' + r + '</span>');
+        relHtml += '</div>';
+    }
+    document.getElementById('rcbRelated').innerHTML = relHtml;
+
+    // Reset state
+    reviewFlipped = false;
+    document.getElementById('reviewCardInner').classList.remove('flipped');
+    document.getElementById('reviewActions').classList.remove('visible');
+    document.getElementById('reviewDueInfo').textContent = '';
+
+    // Progress
+    document.getElementById('reviewCounter').textContent = (reviewIdx + 1) + '/' + reviewQueue.length;
+    const pct = ((reviewIdx) / reviewQueue.length * 100).toFixed(0);
+    document.getElementById('reviewProgressFill').style.width = pct + '%';
+}
+
+function flipCard() {
+    reviewFlipped = !reviewFlipped;
+    document.getElementById('reviewCardInner').classList.toggle('flipped', reviewFlipped);
+    document.getElementById('reviewActions').classList.toggle('visible', reviewFlipped);
+}
+
+function rateCard(rating) {
+    if (!reviewFlipped) { flipCard(); setTimeout(() => rateCard(rating), 450); return; }
+
+    const idx = reviewQueue[reviewIdx];
+    const d = loadData();
+    const today = todayStr();
+
+    // Update streak
+    if (!d.stats) d.stats = {};
+    const lastDate = d.stats.lastReviewDate || '';
+    if (lastDate === today) { /* same day, no streak change */ }
+    else if (lastDate === yesterdayStr()) { d.stats.streak = (d.stats.streak || 0) + 1; }
+    else { d.stats.streak = 1; }
+    d.stats.lastReviewDate = today;
+    d.stats.totalReviews = (d.stats.totalReviews || 0) + 1;
+
+    // Update point
+    if (!d.points[idx]) d.points[idx] = { reviews: 0, ease: 2.5, interval: 1, nextReview: today, history: [] };
+    const p = d.points[idx];
+    const result = sm2(p.ease || 2.5, p.interval || 1, rating);
+    p.ease = result.ease;
+    p.interval = result.interval;
+    p.reviews = (p.reviews || 0) + 1;
+    p.lastReview = today;
+    p.nextReview = addDays(today, result.interval);
+    const labels = ['again','hard','good','easy'];
+    p.history = (p.history || []).concat([labels[rating]]).slice(-10);
+
+    saveData(d);
+    updateStats();
+
+    // Show due info
+    const dueDate = p.nextReview;
+    document.getElementById('reviewDueInfo').textContent = 'Next review: ' + formatDate(dueDate) + ' (' + p.interval + 'd)';
+
+    // Auto-advance after short delay
+    setTimeout(() => nextCard(), 600);
+}
+
+function nextCard() {
+    if (reviewIdx < reviewQueue.length - 1) {
+        reviewIdx++;
+        showCard();
+    } else {
+        finishReview();
+    }
+}
+
+function prevCard() {
+    if (reviewIdx > 0) {
+        reviewIdx--;
+        showCard();
+    }
+}
+
+function exitReview() {
+    document.getElementById('reviewOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+    updateStats();
+}
+
+function finishReview() {
+    const d = loadData();
+    const mastered = getMasteredCount(d);
+    const due = getDueCount(d);
+    const today = todayStr();
+    document.getElementById('reviewCard').innerHTML = `
+        <div class="review-done">
+            <h2>🎉 Session complete!</h2>
+            <p>Mastered: ${mastered} | Due today: ${due}</p>
+            <p style="margin-top:12px">${due === 0 ? 'All caught up! 🎯' : due + ' cards still due — keep going!'}</p>
+            <button class="ra-nav" onclick="exitReview()" style="margin-top:16px">Back to browse</button>
+        </div>`;
+    document.getElementById('reviewActions').classList.remove('visible');
+    document.getElementById('reviewCounter').textContent = reviewQueue.length + '/' + reviewQueue.length;
+    document.getElementById('reviewProgressFill').style.width = '100%';
+    updateStats();
+}
+
+// ---- Helpers ----
+function yesterdayStr() {
+    const d = new Date(); d.setDate(d.getDate() - 1);
+    return d.toISOString().slice(0,10);
+}
+
+function addDays(dateStr, days) {
+    const d = new Date(dateStr + 'T00:00:00');
+    d.setDate(d.getDate() + days);
+    return d.toISOString().slice(0,10);
+}
+
+function formatDate(dateStr) {
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+// ---- Keyboard shortcuts ----
+document.addEventListener('keydown', function(e) {
+    const overlay = document.getElementById('reviewOverlay');
+    if (!overlay.classList.contains('active')) return;
+    // Don't capture when typing in input
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+    switch(e.key) {
+        case ' ': e.preventDefault(); flipCard(); break;
+        case '1': case 'a': rateCard(0); break;
+        case '2': case 'h': rateCard(1); break;
+        case '3': case 'g': rateCard(2); break;
+        case '4': case 'e': rateCard(3); break;
+        case 'ArrowLeft': prevCard(); break;
+        case 'ArrowRight': nextCard(); break;
+        case 'Escape': exitReview(); break;
+    }
+});
+
+// ---- Init ----
+updateStats();
+</script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js');}</script>
+</body>
+</html>

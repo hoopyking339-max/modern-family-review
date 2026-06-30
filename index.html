@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2563eb">
+<link rel="manifest" href="/manifest.json">
+<title>Modern Family · Speaking Review</title>
+<style>
+:root{--bg:#fff;--text:#222;--muted:#888;--border:#eee;--card:#fafafa;--accent:#2563eb;--done-bg:#f0f7ff;}
+[data-theme="dark"]{--bg:#1a1a1a;--text:#ddd;--muted:#999;--border:#333;--card:#252525;--accent:#60a5fa;--done-bg:#1a2a3a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+.top{text-align:center;padding:48px 20px 24px;}
+.top h1{font-size:1.6em;margin-bottom:6px;}
+.top p{color:var(--muted);font-size:0.95em;}
+.top button{margin-top:12px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:6px 16px;cursor:pointer;font-size:0.85em;color:var(--text);}
+.progress-wrap{max-width:640px;margin:0 auto 8px;padding:0 20px;display:flex;align-items:center;gap:12px;}
+.progress-bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--accent);border-radius:3px;transition:width 0.3s;}
+.progress-text{font-size:0.8em;color:var(--muted);white-space:nowrap;}
+.grid{max-width:640px;margin:0 auto;padding:8px 20px 40px;display:flex;flex-direction:column;gap:8px;}
+.ep-card{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:8px;border:1px solid var(--border);text-decoration:none;color:var(--text);background:var(--card);flex-wrap:wrap;}
+.ep-card.ep-done:hover{border-color:var(--accent);background:var(--done-bg);}
+.ep-card.ep-pending{opacity:0.55;pointer-events:none;}
+.ep-label{font-weight:700;font-size:0.95em;background:var(--text);color:var(--bg);padding:3px 10px;border-radius:4px;}
+.ep-label-off{background:var(--border);color:var(--muted);}
+.ep-title{font-size:0.9em;color:var(--muted);flex:1;}
+.ep-nums{font-size:0.8em;display:flex;gap:8px;}
+.n-u{color:#b45309;font-weight:600;}
+.n-a{color:#1d4ed8;font-weight:600;}
+.n-pending{color:var(--muted);font-style:italic;}
+.ep-review-stat{font-size:0.75em;color:var(--accent);min-width:50px;text-align:right;}
+.empty{text-align:center;padding:64px;color:var(--muted);}
+.stats-row{max-width:640px;margin:0 auto 16px;padding:0 20px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+.stat-chip{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:6px 16px;font-size:0.85em;}
+.stat-chip .val{font-weight:700;color:var(--accent);}
+</style>
+</head>
+<body>
+<div class="top">
+    <h1>Modern Family · Speaking Review</h1>
+    <p>Your notes + AI discoveries from each episode</p>
+    <button onclick="toggleTheme()" id="themeBtn">Dark</button>
+</div>
+
+    <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" style="width:4%"></div></div>
+        <span class="progress-text">1/24 episodes · 4%</span>
+    </div>
+<div class="stats-row" id="reviewSummary"></div>
+<div class="grid">
+    
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E01</span>
+            <span class="ep-title">Episode 01</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E02</span>
+            <span class="ep-title">Episode 02</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E03</span>
+            <span class="ep-title">Episode 03</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E04</span>
+            <span class="ep-title">Episode 04</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E05</span>
+            <span class="ep-title">Episode 05</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E06</span>
+            <span class="ep-title">Episode 06</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E07</span>
+            <span class="ep-title">Episode 07</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <a href="s01e08.html" class="ep-card ep-done">
+            <span class="ep-label">S01E08</span>
+            <span class="ep-title">Great Expectations</span>
+            <span class="ep-nums"><span class="n-u">Notes 17</span> <span class="n-a">AI 0</span></span>
+            <span class="ep-review-stat" data-ep="S01E08"></span>
+        </a>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E09</span>
+            <span class="ep-title">Episode 09</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E10</span>
+            <span class="ep-title">Episode 10</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E11</span>
+            <span class="ep-title">Episode 11</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E12</span>
+            <span class="ep-title">Episode 12</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E13</span>
+            <span class="ep-title">Episode 13</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E14</span>
+            <span class="ep-title">Episode 14</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E15</span>
+            <span class="ep-title">Episode 15</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E16</span>
+            <span class="ep-title">Episode 16</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E17</span>
+            <span class="ep-title">Episode 17</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E18</span>
+            <span class="ep-title">Episode 18</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E19</span>
+            <span class="ep-title">Episode 19</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E20</span>
+            <span class="ep-title">Episode 20</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E21</span>
+            <span class="ep-title">Episode 21</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E22</span>
+            <span class="ep-title">Episode 22</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E23</span>
+            <span class="ep-title">Episode 23</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+        <div class="ep-card ep-pending">
+            <span class="ep-label ep-label-off">S01E24</span>
+            <span class="ep-title">Episode 24</span>
+            <span class="ep-nums"><span class="n-pending">待处理</span></span>
+        </div>
+</div>
+<script>
+function toggleTheme(){
+    const h=document.documentElement,b=document.getElementById('themeBtn');
+    if(h.getAttribute('data-theme')==='dark'){h.removeAttribute('data-theme');b.textContent='Dark';}
+    else{h.setAttribute('data-theme','dark');b.textContent='Light';}
+    localStorage.setItem('theme',h.getAttribute('data-theme')||'light');
+}
+(function(){if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeBtn').textContent='Light';}})();
+
+// Show review stats from localStorage for each episode
+(function(){
+    const stats = document.querySelectorAll('.ep-review-stat');
+    let totalReviewed = 0, totalMastered = 0;
+    stats.forEach(el => {
+        const ep = el.dataset.ep;
+        const key = 'mf_review_' + ep;
+        try {
+            const data = JSON.parse(localStorage.getItem(key));
+            if (data && data.stats) {
+                const pts = data.points || {};
+                const vals = Object.values(pts);
+                const reviewed = vals.length;
+                const mastered = vals.filter(p => (p.ease||0) >= 2.7 && (p.interval||0) >= 21).length;
+                totalReviewed += reviewed;
+                totalMastered += mastered;
+                if (reviewed > 0) {
+                    el.textContent = '📝' + reviewed;
+                    if (mastered > 0) el.textContent += ' ⭐' + mastered;
+                }
+            }
+        } catch(e) {}
+    });
+    const row = document.getElementById('reviewSummary');
+    if (totalReviewed > 0) {
+        row.innerHTML =
+            '<div class="stat-chip">📝 Reviewed: <span class="val">' + totalReviewed + '</span></div>' +
+            '<div class="stat-chip">⭐ Mastered: <span class="val">' + totalMastered + '</span></div>';
+    }
+})();
+</script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js');}</script>
+</body>
+</html>

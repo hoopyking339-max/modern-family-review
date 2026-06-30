@@ -15,7 +15,7 @@
     --border: #eee;
     --accent: #2563eb;
     --user-stripe: #f59e0b;
-    --ai-stripe: #3b82f6;
+    --ext-stripe: #10b981;
     --user-bg: #fffbeb;
     --ai-bg: #eff6ff;
     --sidebar-w: 260px;
@@ -43,9 +43,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC
 .topbar .stats { display: flex; gap: 6px; font-size: 0.78em; }
 .topbar .stat { padding: 3px 10px; border-radius: 20px; font-weight: 600; }
 .stat-u { background: #fef3c7; color: #92400e; }
-.stat-a { background: #dbeafe; color: #1e40af; }
+.stat-a { background: #d1fae5; color: #065f46; }
 [data-theme="dark"] .stat-u { background: #422006; color: #fbbf24; }
-[data-theme="dark"] .stat-a { background: #1e3a5f; color: #93c5fd; }
+[data-theme="dark"] .stat-a { background: #022c22; color: #6ee7b7; }
 
 /* Layout */
 .layout { display: flex; }
@@ -67,7 +67,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC
 .scene h3 { font-size: 1em; font-weight: 600; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
 
 /* Point card — collapsed by default */
-.point { border-radius: 8px; margin-bottom: 6px; overflow: hidden; border-left: 3px solid var(--ai-stripe); background: var(--card); }
+.point { border-radius: 8px; margin-bottom: 6px; overflow: hidden; border-left: 3px solid var(--ext-stripe); background: var(--card); }
 .point.user { border-left-color: var(--user-stripe); }
 .point-summary { display: grid; grid-template-columns: auto 1fr auto; grid-template-rows: auto auto; gap: 2px 12px; padding: 10px 14px; cursor: pointer; align-items: center; user-select: none; }
 .point-summary:hover { background: rgba(0,0,0,0.02); }
@@ -94,7 +94,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC
 /* Badge & tags */
 .badge { font-size: 0.68em; font-weight: 700; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.03em; }
 .badge-user { background: #fef3c7; color: #b45309; }
-.badge-ai { background: #dbeafe; color: #1d4ed8; }
+.badge-ext { background: #d1fae5; color: #065f46; }
 .cat { font-size: 0.75em; color: var(--muted); }
 .freq { font-size: 0.65em; padding: 1px 5px; border-radius: 3px; font-weight: 700; text-transform: uppercase; }
 .freq-high { color: #dc2626; }
@@ -194,8 +194,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC
     <span class="ep">Great Expectations</span>
     <span class="spacer"></span>
     <span class="stats">
-        <span class="stat stat-u">Your notes 17</span>
-        <span class="stat stat-a">AI found 0</span>
+        <span class="stat stat-u">Your notes 2</span>
+        <span class="stat stat-a">Extras 29</span>
     </span>
     <span class="review-progress" id="reviewProgress" title="Review progress"></span>
     <button id="reviewBtn" onclick="startReview()" title="Start flashcard review">🎯 Review</button>
@@ -209,7 +209,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC
     <div class="filter-row">
         <button class="filter-chip active" onclick="filterBy('all', this)">All</button>
         <button class="filter-chip" onclick="filterBy('user', this)">Notes</button>
-        <button class="filter-chip" onclick="filterBy('ai', this)">AI</button>
+        <button class="filter-chip" onclick="filterBy('ai', this)">Extras</button>
     </div>
     <h4>📊 Review Stats</h4>
     <div class="review-stats" id="reviewStats">
@@ -219,15 +219,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC
         <div class="rs-row"><span>Streak</span><span class="rs-val" id="rsStreak">-</span></div>
     </div>
     <h4>Scenes</h4>
-    <ul><li data-scene="Dunphy-house-—-anniversary-morning"><a href="#Dunphy-house-—-anniversary-morning">Dunphy house — anniversary morning <span class="count">17</span></a></li></ul>
+    <ul><li data-scene="Multiple-scenes"><a href="#Multiple-scenes">Multiple scenes <span class="count">31</span></a></li></ul>
 </nav>
 
 <main class="main">
     
-            <section id="Dunphy-house-—-anniversary-morning" class="scene">
-                <h3>Dunphy house — anniversary morning</h3>
+            <section id="Multiple-scenes" class="scene">
+                <h3>Multiple scenes</h3>
                 <div class="points">
-            <div class="point user" data-source="user" data-index="0" data-quote="Hey!" data-ytquery="Hey! tv show scene" data-point='{"quote": "Hey!", "category": "phrase", "frequency": "high", "context": "Gloria greets the Dunphys at the door — a casual, friendly hello", "explanation": "The user&#39;s note beautifully captures the tone of a casual visit — &#39;pop over&#39;, &#39;drop by&#39;, &#39;swing by&#39;. In English, &#39;Hey!&#39; isn&#39;t just a greeting; it signals a relaxed, uninvited-but-welcome visit. (顺路串门打招呼) It&#39;s warmer than &#39;Hello&#39; and less formal than &#39;Hi&#39;. Cluster: &#39;Hey, what&#39;s up?&#39; / &#39;Hey, come on in!&#39; / &#39;Hey there!&#39;", "examples": ["Hey! I was just in the neighborhood and thought I&#39;d drop by.", "Hey! Long time no see — come on in, make yourself at home.", "Hey there! I brought some cookies — hope I&#39;m not interrupting."], "related": ["drop by", "swing by", "pop in", "come over", "stop by"], "formality": "casual", "source": "user"}'>
+            <div class="point user" data-source="user" data-index="0" data-quote="Hey!" data-ytquery="Hey! tv show scene" data-point='{"quote": "Hey!", "category": "phrase", "frequency": "high", "context": "Gloria greets someone at the door — a casual, friendly arrival.", "explanation": "The user noted &#39;专程串门、小拜访、顺路过去坐坐&#39; — Gloria&#39;s &#39;Hey!&#39; is a warm, informal greeting that sets the tone for a casual visit. In English, &#39;Hey&#39; is more relaxed than &#39;Hello&#39; and often implies familiarity. The broader cluster includes expressions for casual visiting: &#39;pop in&#39; (unexpected short visit), &#39;swing by&#39; (quick stop), &#39;stop by&#39; (brief visit). These all convey a sense of ease and spontaneity. (轻松打招呼、串门用) Use &#39;Hey&#39; with friends; it&#39;s too casual for formal settings.", "examples": ["Hey, just wanted to pop in and say hi on my way to the store.", "I&#39;ll swing by your place after work to drop off the book.", "Can we stop by your mom&#39;s house for a minute? It&#39;s on the way."], "related": ["pop in", "swing by", "stop by", "drop in", "come over", "say hello"], "formality": "casual", "source": "user"}'>
                 <div class="point-summary" onclick="togglePoint(this)">
                     <div class="point-left">
                         <span class="badge badge-user">Your note</span>
@@ -235,17 +235,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC
                         <span class="freq freq-high">high</span>
                     </div>
                     <div class="point-quote">"Hey!"</div>
-                    <div class="point-hint">The user's note beautifully captures the tone of a casual visit — 'pop over', 'd...</div>
+                    <div class="point-hint">The user noted '专程串门、小拜访、顺路过去坐坐' — Gloria's 'Hey!' is a warm, informal greeting ...</div>
                     <div class="point-actions">
                         <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
                         <span class="expand-icon">▸</span>
                     </div>
                 </div>
                 <div class="point-detail">
-                    <div class="detail-context">Gloria greets the Dunphys at the door — a casual, friendly hello</div>
-                    <div class="detail-explanation">The user's note beautifully captures the tone of a casual visit — 'pop over', 'drop by', 'swing by'. In English, 'Hey!' isn't just a greeting; it signals a relaxed, uninvited-but-welcome visit. (顺路串门打招呼) It's warmer than 'Hello' and less formal than 'Hi'. Cluster: 'Hey, what's up?' / 'Hey, come on in!' / 'Hey there!'</div>
-                    <div class="examples"><span class="label">Examples</span><ul><li>Hey! I was just in the neighborhood and thought I'd drop by.</li><li>Hey! Long time no see — come on in, make yourself at home.</li><li>Hey there! I brought some cookies — hope I'm not interrupting.</li></ul></div>
-                    <div class="related"><span class="label">See also</span> <span class="tag">drop by</span><span class="tag">swing by</span><span class="tag">pop in</span><span class="tag">come over</span><span class="tag">stop by</span></div>
+                    <div class="detail-context">Gloria greets someone at the door — a casual, friendly arrival.</div>
+                    <div class="detail-explanation">The user noted '专程串门、小拜访、顺路过去坐坐' — Gloria's 'Hey!' is a warm, informal greeting that sets the tone for a casual visit. In English, 'Hey' is more relaxed than 'Hello' and often implies familiarity. The broader cluster includes expressions for casual visiting: 'pop in' (unexpected short visit), 'swing by' (quick stop), 'stop by' (brief visit). These all convey a sense of ease and spontaneity. (轻松打招呼、串门用) Use 'Hey' with friends; it's too casual for formal settings.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>Hey, just wanted to pop in and say hi on my way to the store.</li><li>I'll swing by your place after work to drop off the book.</li><li>Can we stop by your mom's house for a minute? It's on the way.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">pop in</span><span class="tag">swing by</span><span class="tag">stop by</span><span class="tag">drop in</span><span class="tag">come over</span><span class="tag">say hello</span></div>
                     <div class="detail-meta">casual</div>
                     <div class="video-container" data-loaded="0">
                         <div class="video-placeholder">Loading video clip...</div>
@@ -253,129 +253,25 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC
                 </div>
             </div>
             
-            <div class="point user" data-source="user" data-index="1" data-quote="be brewing" data-ytquery="be brewing tv show scene" data-point='{"quote": "be brewing", "category": "phrase", "frequency": "medium", "context": "Claire narrates a romantic memory — &#39;a storm was brewing in my heart&#39;", "explanation": "A vivid metaphor for something unpleasant or intense building up. &#39;Brewing&#39; literally means making coffee/beer, but here it means &#39;about to happen&#39;. (风暴/麻烦正在酝酿) It&#39;s almost always used for negative things — trouble, storms, conflict. Cluster: &#39;There&#39;s something brewing&#39; / &#39;Trouble is brewing&#39; / &#39;A storm is brewing&#39;.", "examples": ["I can tell there&#39;s trouble brewing between them — they&#39;ve been arguing all week.", "A storm is brewing outside — we should head home.", "There&#39;s something brewing in the office; the boss has been in meetings all day."], "related": ["simmering", "looming", "brewing up", "in the air", "on the horizon"], "formality": "informal", "source": "user"}'>
+            <div class="point user" data-source="user" data-index="1" data-quote="There's trouble brewing in the office." data-ytquery="Theres trouble brewing in the office. tv show scene" data-point='{"quote": "There&#39;s trouble brewing in the office.", "category": "phrase", "frequency": "medium", "context": "User&#39;s dictionary note about &#39;be brewing&#39; — referencing the idea of trouble or a storm gathering.", "explanation": "The user explored &#39;be brewing&#39; — a vivid metaphor for something unpleasant or a storm developing. In the script, Claire says &#39;another storm was brewing... in my heart.&#39; This expression is common for trouble, conflict, or storms. (酝酿、即将来临) Literal: coffee/tea brewing. Figurative: trouble brewing (conflict), a storm&#39;s brewing (weather). It&#39;s used to hint at something negative building up. Don&#39;t use for positive situations.", "examples": ["I can sense trouble brewing between those two coworkers.", "A storm&#39;s brewing outside — we should head home now.", "There&#39;s been tension brewing in the office all week."], "related": ["brewing", "in the air", "on the horizon", "coming down the pike", "building up", "simmering"], "formality": "casual", "source": "user"}'>
                 <div class="point-summary" onclick="togglePoint(this)">
                     <div class="point-left">
                         <span class="badge badge-user">Your note</span>
                         <span class="cat">💬 phrase</span>
                         <span class="freq freq-medium">medium</span>
                     </div>
-                    <div class="point-quote">"be brewing"</div>
-                    <div class="point-hint">A vivid metaphor for something unpleasant or intense building up. 'Brewing' lite...</div>
+                    <div class="point-quote">"There's trouble brewing in the office."</div>
+                    <div class="point-hint">The user explored 'be brewing' — a vivid metaphor for something unpleasant or a ...</div>
                     <div class="point-actions">
                         <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
                         <span class="expand-icon">▸</span>
                     </div>
                 </div>
                 <div class="point-detail">
-                    <div class="detail-context">Claire narrates a romantic memory — 'a storm was brewing in my heart'</div>
-                    <div class="detail-explanation">A vivid metaphor for something unpleasant or intense building up. 'Brewing' literally means making coffee/beer, but here it means 'about to happen'. (风暴/麻烦正在酝酿) It's almost always used for negative things — trouble, storms, conflict. Cluster: 'There's something brewing' / 'Trouble is brewing' / 'A storm is brewing'.</div>
-                    <div class="examples"><span class="label">Examples</span><ul><li>I can tell there's trouble brewing between them — they've been arguing all week.</li><li>A storm is brewing outside — we should head home.</li><li>There's something brewing in the office; the boss has been in meetings all day.</li></ul></div>
-                    <div class="related"><span class="label">See also</span> <span class="tag">simmering</span><span class="tag">looming</span><span class="tag">brewing up</span><span class="tag">in the air</span><span class="tag">on the horizon</span></div>
-                    <div class="detail-meta">informal</div>
-                    <div class="video-container" data-loaded="0">
-                        <div class="video-placeholder">Loading video clip...</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="point user" data-source="user" data-index="2" data-quote="There’s trouble brewing in the office." data-ytquery="There’s trouble brewing in the office. tv show scene" data-point='{"quote": "There’s trouble brewing in the office.", "category": "vocabulary", "frequency": "medium", "context": "User&#39;s example sentence showing the expression in context", "explanation": "A classic example of &#39;be brewing&#39; in action. &#39;Trouble brewing&#39; is a fixed phrase — you can&#39;t say &#39;trouble is making coffee&#39;. (办公室里要有麻烦了) It&#39;s idiomatic: brewing = slowly developing, like a storm or conflict. The image is of something unseen but growing.", "examples": ["There&#39;s trouble brewing in the office — the team is split on the new policy.", "I sensed trouble brewing when she didn&#39;t reply to my text.", "Political trouble is brewing in that country; protests are starting."], "related": ["stirring up trouble", "simmering conflict", "looming crisis", "building tension"], "formality": "informal", "source": "user"}'>
-                <div class="point-summary" onclick="togglePoint(this)">
-                    <div class="point-left">
-                        <span class="badge badge-user">Your note</span>
-                        <span class="cat">📖 vocabulary</span>
-                        <span class="freq freq-medium">medium</span>
-                    </div>
-                    <div class="point-quote">"There’s trouble brewing in the office."</div>
-                    <div class="point-hint">A classic example of 'be brewing' in action. 'Trouble brewing' is a fixed phrase...</div>
-                    <div class="point-actions">
-                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
-                        <span class="expand-icon">▸</span>
-                    </div>
-                </div>
-                <div class="point-detail">
-                    <div class="detail-context">User's example sentence showing the expression in context</div>
-                    <div class="detail-explanation">A classic example of 'be brewing' in action. 'Trouble brewing' is a fixed phrase — you can't say 'trouble is making coffee'. (办公室里要有麻烦了) It's idiomatic: brewing = slowly developing, like a storm or conflict. The image is of something unseen but growing.</div>
-                    <div class="examples"><span class="label">Examples</span><ul><li>There's trouble brewing in the office — the team is split on the new policy.</li><li>I sensed trouble brewing when she didn't reply to my text.</li><li>Political trouble is brewing in that country; protests are starting.</li></ul></div>
-                    <div class="related"><span class="label">See also</span> <span class="tag">stirring up trouble</span><span class="tag">simmering conflict</span><span class="tag">looming crisis</span><span class="tag">building tension</span></div>
-                    <div class="detail-meta">informal</div>
-                    <div class="video-container" data-loaded="0">
-                        <div class="video-placeholder">Loading video clip...</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="point user" data-source="user" data-index="3" data-quote="b) if a storm is brewing, it will happen soon 〔暴风雨〕即将来临" data-ytquery="b) if a storm is brewing, it will happen soon 〔暴风雨〕即将来临 tv show scene" data-point='{"quote": "b) if a storm is brewing, it will happen soon 〔暴风雨〕即将来临", "category": "culture", "frequency": "medium", "context": "User&#39;s dictionary-style note on the idiom", "explanation": "This is the literal origin of the metaphor. A storm brewing = dark clouds gathering, rain coming. (暴风雨即将来临) In daily life, it&#39;s used for any tense situation about to explode. The weather meaning is literal; the emotional meaning is figurative. Both are common.", "examples": ["A storm is brewing — look at those dark clouds.", "I can feel a storm brewing in their marriage; they barely talk anymore.", "A political storm is brewing after that scandal broke."], "related": ["looming", "on the horizon", "in the air", "gathering", "building up"], "formality": "informal", "source": "user"}'>
-                <div class="point-summary" onclick="togglePoint(this)">
-                    <div class="point-left">
-                        <span class="badge badge-user">Your note</span>
-                        <span class="cat">🇺🇸 culture</span>
-                        <span class="freq freq-medium">medium</span>
-                    </div>
-                    <div class="point-quote">"b) if a storm is brewing, it will happen soon 〔暴风雨〕即将来临"</div>
-                    <div class="point-hint">This is the literal origin of the metaphor. A storm brewing = dark clouds gather...</div>
-                    <div class="point-actions">
-                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
-                        <span class="expand-icon">▸</span>
-                    </div>
-                </div>
-                <div class="point-detail">
-                    <div class="detail-context">User's dictionary-style note on the idiom</div>
-                    <div class="detail-explanation">This is the literal origin of the metaphor. A storm brewing = dark clouds gathering, rain coming. (暴风雨即将来临) In daily life, it's used for any tense situation about to explode. The weather meaning is literal; the emotional meaning is figurative. Both are common.</div>
-                    <div class="examples"><span class="label">Examples</span><ul><li>A storm is brewing — look at those dark clouds.</li><li>I can feel a storm brewing in their marriage; they barely talk anymore.</li><li>A political storm is brewing after that scandal broke.</li></ul></div>
-                    <div class="related"><span class="label">See also</span> <span class="tag">looming</span><span class="tag">on the horizon</span><span class="tag">in the air</span><span class="tag">gathering</span><span class="tag">building up</span></div>
-                    <div class="detail-meta">informal</div>
-                    <div class="video-container" data-loaded="0">
-                        <div class="video-placeholder">Loading video clip...</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="point user" data-source="user" data-index="4" data-quote="Put something over on someone" data-ytquery="Put something over on someone tv show scene" data-point='{"quote": "Put something over on someone", "category": "phrase", "frequency": "low", "context": "Jay tells Gloria that Haley tried to trick him — &#39;You try to put something over on me, you&#39;re gonna lose&#39;", "explanation": "A classic American idiom meaning &#39;to trick or deceive someone&#39;. (耍花招骗人) It&#39;s informal and slightly old-fashioned, but still in use. The &#39;over on&#39; part is fixed — you can&#39;t say &#39;put something over someone&#39;. It implies a clever scheme that failed.", "examples": ["I thought I could put one over on my teacher, but she caught me.", "He tried to put something over on the boss, but the boss saw right through it.", "You can&#39;t put anything over on my grandma — she&#39;s too sharp."], "related": ["pull a fast one", "take someone for a ride", "play a trick on", "con", "trick"], "formality": "informal", "source": "user"}'>
-                <div class="point-summary" onclick="togglePoint(this)">
-                    <div class="point-left">
-                        <span class="badge badge-user">Your note</span>
-                        <span class="cat">💬 phrase</span>
-                        <span class="freq freq-low">low</span>
-                    </div>
-                    <div class="point-quote">"Put something over on someone"</div>
-                    <div class="point-hint">A classic American idiom meaning 'to trick or deceive someone'. (耍花招骗人) It's inf...</div>
-                    <div class="point-actions">
-                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
-                        <span class="expand-icon">▸</span>
-                    </div>
-                </div>
-                <div class="point-detail">
-                    <div class="detail-context">Jay tells Gloria that Haley tried to trick him — 'You try to put something over on me, you're gonna lose'</div>
-                    <div class="detail-explanation">A classic American idiom meaning 'to trick or deceive someone'. (耍花招骗人) It's informal and slightly old-fashioned, but still in use. The 'over on' part is fixed — you can't say 'put something over someone'. It implies a clever scheme that failed.</div>
-                    <div class="examples"><span class="label">Examples</span><ul><li>I thought I could put one over on my teacher, but she caught me.</li><li>He tried to put something over on the boss, but the boss saw right through it.</li><li>You can't put anything over on my grandma — she's too sharp.</li></ul></div>
-                    <div class="related"><span class="label">See also</span> <span class="tag">pull a fast one</span><span class="tag">take someone for a ride</span><span class="tag">play a trick on</span><span class="tag">con</span><span class="tag">trick</span></div>
-                    <div class="detail-meta">informal</div>
-                    <div class="video-container" data-loaded="0">
-                        <div class="video-placeholder">Loading video clip...</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="point user" data-source="user" data-index="5" data-quote="Fix that step." data-ytquery="Fix that step. tv show scene" data-point='{"quote": "Fix that step.", "category": "phrase", "frequency": "medium", "context": "Phil walks in and says to the step, then greets Claire — morning joke", "explanation": "A classic Phil move — talking to an object as if it&#39;s a person. &#39;Fix that step&#39; is a command to the step itself (幽默地命令台阶修好自己). It&#39;s not a real instruction; it&#39;s a playful way to acknowledge a problem. Shows Phil&#39;s quirky personality.", "examples": ["Fix that leaky faucet! (said to the faucet while walking past)", "Be good, car! (patting the hood)", "Stop making that noise, printer! (said to a jammed printer)"], "related": ["talk to objects", "personification", "quirky humor"], "formality": "casual", "source": "user"}'>
-                <div class="point-summary" onclick="togglePoint(this)">
-                    <div class="point-left">
-                        <span class="badge badge-user">Your note</span>
-                        <span class="cat">💬 phrase</span>
-                        <span class="freq freq-medium">medium</span>
-                    </div>
-                    <div class="point-quote">"Fix that step."</div>
-                    <div class="point-hint">A classic Phil move — talking to an object as if it's a person. 'Fix that step' ...</div>
-                    <div class="point-actions">
-                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
-                        <span class="expand-icon">▸</span>
-                    </div>
-                </div>
-                <div class="point-detail">
-                    <div class="detail-context">Phil walks in and says to the step, then greets Claire — morning joke</div>
-                    <div class="detail-explanation">A classic Phil move — talking to an object as if it's a person. 'Fix that step' is a command to the step itself (幽默地命令台阶修好自己). It's not a real instruction; it's a playful way to acknowledge a problem. Shows Phil's quirky personality.</div>
-                    <div class="examples"><span class="label">Examples</span><ul><li>Fix that leaky faucet! (said to the faucet while walking past)</li><li>Be good, car! (patting the hood)</li><li>Stop making that noise, printer! (said to a jammed printer)</li></ul></div>
-                    <div class="related"><span class="label">See also</span> <span class="tag">talk to objects</span><span class="tag">personification</span><span class="tag">quirky humor</span></div>
+                    <div class="detail-context">User's dictionary note about 'be brewing' — referencing the idea of trouble or a storm gathering.</div>
+                    <div class="detail-explanation">The user explored 'be brewing' — a vivid metaphor for something unpleasant or a storm developing. In the script, Claire says 'another storm was brewing... in my heart.' This expression is common for trouble, conflict, or storms. (酝酿、即将来临) Literal: coffee/tea brewing. Figurative: trouble brewing (conflict), a storm's brewing (weather). It's used to hint at something negative building up. Don't use for positive situations.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>I can sense trouble brewing between those two coworkers.</li><li>A storm's brewing outside — we should head home now.</li><li>There's been tension brewing in the office all week.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">brewing</span><span class="tag">in the air</span><span class="tag">on the horizon</span><span class="tag">coming down the pike</span><span class="tag">building up</span><span class="tag">simmering</span></div>
                     <div class="detail-meta">casual</div>
                     <div class="video-container" data-loaded="0">
                         <div class="video-placeholder">Loading video clip...</div>
@@ -383,286 +279,754 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC
                 </div>
             </div>
             
-            <div class="point user" data-source="user" data-index="6" data-quote="You're impossible to buy for." data-ytquery="Youre impossible to buy for. tv show scene" data-point='{"quote": "You&#39;re impossible to buy for.", "category": "phrase", "frequency": "high", "context": "Claire says this to Phil after he doesn&#39;t like the coupon gift — defensive explanation", "explanation": "A classic social move: shifting blame to the other person. &#39;You&#39;re impossible to buy for&#39; = &#39;It&#39;s your fault I gave a bad gift&#39;. (你太难买礼物了) It&#39;s a polite way to say &#39;you don&#39;t appreciate my effort&#39;. Extremely common in gift-giving contexts.", "examples": ["I got you socks again — you&#39;re impossible to buy for!", "My dad is impossible to buy for; he already has everything.", "She&#39;s impossible to buy for because she never tells me what she wants."], "related": ["hard to shop for", "difficult to please", "picky", "fussy"], "formality": "informal", "source": "user"}'>
+            <div class="point ai" data-source="ai" data-index="2" data-quote="Read it and weep, Phil!" data-ytquery="Read it and weep, Phil! tv show scene" data-point='{"quote": "Read it and weep, Phil!", "category": "phrase", "frequency": "medium", "context": "Claire triumphantly reveals she hired Izzy, the guitarist from Spandau Ballet, as an anniversary gift.", "explanation": "A classic American taunt used when you&#39;ve done something impressive or won. (羡慕嫉妒恨吧) It&#39;s playful, not aggressive — like &#39;Eat your heart out&#39; or &#39;Top that!&#39; The tone is key: said with a smirk, not genuine cruelty. Used when showing off a surprise, a win, or a clever move. Very &#39;80s/&#39;90s but still alive.", "examples": ["I just got front-row concert tickets. Read it and weep!", "She scored the last slice of cheesecake — read it and weep, everyone.", "My team won the championship. Read it and weep!"], "related": ["eat your heart out", "top that", "check this out", "how do you like them apples", "in your face", "take that"], "formality": "casual", "source": "ai"}'>
                 <div class="point-summary" onclick="togglePoint(this)">
                     <div class="point-left">
-                        <span class="badge badge-user">Your note</span>
-                        <span class="cat">💬 phrase</span>
-                        <span class="freq freq-high">high</span>
-                    </div>
-                    <div class="point-quote">"You're impossible to buy for."</div>
-                    <div class="point-hint">A classic social move: shifting blame to the other person. 'You're impossible to...</div>
-                    <div class="point-actions">
-                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
-                        <span class="expand-icon">▸</span>
-                    </div>
-                </div>
-                <div class="point-detail">
-                    <div class="detail-context">Claire says this to Phil after he doesn't like the coupon gift — defensive explanation</div>
-                    <div class="detail-explanation">A classic social move: shifting blame to the other person. 'You're impossible to buy for' = 'It's your fault I gave a bad gift'. (你太难买礼物了) It's a polite way to say 'you don't appreciate my effort'. Extremely common in gift-giving contexts.</div>
-                    <div class="examples"><span class="label">Examples</span><ul><li>I got you socks again — you're impossible to buy for!</li><li>My dad is impossible to buy for; he already has everything.</li><li>She's impossible to buy for because she never tells me what she wants.</li></ul></div>
-                    <div class="related"><span class="label">See also</span> <span class="tag">hard to shop for</span><span class="tag">difficult to please</span><span class="tag">picky</span><span class="tag">fussy</span></div>
-                    <div class="detail-meta">informal</div>
-                    <div class="video-container" data-loaded="0">
-                        <div class="video-placeholder">Loading video clip...</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="point user" data-source="user" data-index="7" data-quote="Take it down a notch, Jethro." data-ytquery="Take it down a notch, Jethro. tv show scene" data-point='{"quote": "Take it down a notch, Jethro.", "category": "phrase", "frequency": "medium", "context": "Jay tells Manny to calm down after he flirts with Haley — grandfatherly warning", "explanation": "A brilliant mix of idiom and cultural reference. &#39;Take it down a notch&#39; = calm down, reduce intensity. &#39;Jethro&#39; is a reference to the Beverly Hillbillies — a country bumpkin. (冷静点，乡下小子) Jay calls Manny &#39;Jethro&#39; to mock his awkward flirting as unsophisticated.", "examples": ["Hey, take it down a notch — you&#39;re being too loud.", "She was bragging so much I wanted to tell her to take it down a notch.", "He called his friend &#39;Jethro&#39; as a joke when he tried to show off."], "related": ["calm down", "dial it back", "cool it", "simmer down", "easy there"], "formality": "informal", "source": "user"}'>
-                <div class="point-summary" onclick="togglePoint(this)">
-                    <div class="point-left">
-                        <span class="badge badge-user">Your note</span>
-                        <span class="cat">💬 phrase</span>
-                        <span class="freq freq-medium">medium</span>
-                    </div>
-                    <div class="point-quote">"Take it down a notch, Jethro."</div>
-                    <div class="point-hint">A brilliant mix of idiom and cultural reference. 'Take it down a notch' = calm d...</div>
-                    <div class="point-actions">
-                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
-                        <span class="expand-icon">▸</span>
-                    </div>
-                </div>
-                <div class="point-detail">
-                    <div class="detail-context">Jay tells Manny to calm down after he flirts with Haley — grandfatherly warning</div>
-                    <div class="detail-explanation">A brilliant mix of idiom and cultural reference. 'Take it down a notch' = calm down, reduce intensity. 'Jethro' is a reference to the Beverly Hillbillies — a country bumpkin. (冷静点，乡下小子) Jay calls Manny 'Jethro' to mock his awkward flirting as unsophisticated.</div>
-                    <div class="examples"><span class="label">Examples</span><ul><li>Hey, take it down a notch — you're being too loud.</li><li>She was bragging so much I wanted to tell her to take it down a notch.</li><li>He called his friend 'Jethro' as a joke when he tried to show off.</li></ul></div>
-                    <div class="related"><span class="label">See also</span> <span class="tag">calm down</span><span class="tag">dial it back</span><span class="tag">cool it</span><span class="tag">simmer down</span><span class="tag">easy there</span></div>
-                    <div class="detail-meta">informal</div>
-                    <div class="video-container" data-loaded="0">
-                        <div class="video-placeholder">Loading video clip...</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="point user" data-source="user" data-index="8" data-quote="Read it and weep, Phil!" data-ytquery="Read it and weep, Phil! tv show scene" data-point='{"quote": "Read it and weep, Phil!", "category": "phrase", "frequency": "medium", "context": "Claire reveals she hired a musician for Phil — triumphant announcement", "explanation": "A playful taunt meaning &#39;Look at this amazing thing I did — be jealous&#39;. (羡慕嫉妒恨吧) It&#39;s competitive but friendly. The &#39;it&#39; is something impressive you&#39;ve achieved. Often used in games or when revealing a surprise.", "examples": ["I got the last slice of pizza — read it and weep!", "She aced the test and sent a photo to her friends: &#39;Read it and weep!&#39;", "He showed off his new car with a grin: &#39;Read it and weep, guys.&#39;"], "related": ["eat your heart out", "top that", "check this out", "take that"], "formality": "informal", "source": "user"}'>
-                <div class="point-summary" onclick="togglePoint(this)">
-                    <div class="point-left">
-                        <span class="badge badge-user">Your note</span>
+                        <span class="badge badge-ext">Extras</span>
                         <span class="cat">💬 phrase</span>
                         <span class="freq freq-medium">medium</span>
                     </div>
                     <div class="point-quote">"Read it and weep, Phil!"</div>
-                    <div class="point-hint">A playful taunt meaning 'Look at this amazing thing I did — be jealous'. (羡慕嫉妒恨吧...</div>
+                    <div class="point-hint">A classic American taunt used when you've done something impressive or won. (羡慕嫉...</div>
                     <div class="point-actions">
                         <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
                         <span class="expand-icon">▸</span>
                     </div>
                 </div>
                 <div class="point-detail">
-                    <div class="detail-context">Claire reveals she hired a musician for Phil — triumphant announcement</div>
-                    <div class="detail-explanation">A playful taunt meaning 'Look at this amazing thing I did — be jealous'. (羡慕嫉妒恨吧) It's competitive but friendly. The 'it' is something impressive you've achieved. Often used in games or when revealing a surprise.</div>
-                    <div class="examples"><span class="label">Examples</span><ul><li>I got the last slice of pizza — read it and weep!</li><li>She aced the test and sent a photo to her friends: 'Read it and weep!'</li><li>He showed off his new car with a grin: 'Read it and weep, guys.'</li></ul></div>
-                    <div class="related"><span class="label">See also</span> <span class="tag">eat your heart out</span><span class="tag">top that</span><span class="tag">check this out</span><span class="tag">take that</span></div>
-                    <div class="detail-meta">informal</div>
+                    <div class="detail-context">Claire triumphantly reveals she hired Izzy, the guitarist from Spandau Ballet, as an anniversary gift.</div>
+                    <div class="detail-explanation">A classic American taunt used when you've done something impressive or won. (羡慕嫉妒恨吧) It's playful, not aggressive — like 'Eat your heart out' or 'Top that!' The tone is key: said with a smirk, not genuine cruelty. Used when showing off a surprise, a win, or a clever move. Very '80s/'90s but still alive.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>I just got front-row concert tickets. Read it and weep!</li><li>She scored the last slice of cheesecake — read it and weep, everyone.</li><li>My team won the championship. Read it and weep!</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">eat your heart out</span><span class="tag">top that</span><span class="tag">check this out</span><span class="tag">how do you like them apples</span><span class="tag">in your face</span><span class="tag">take that</span></div>
+                    <div class="detail-meta">casual</div>
                     <div class="video-container" data-loaded="0">
                         <div class="video-placeholder">Loading video clip...</div>
                     </div>
                 </div>
             </div>
             
-            <div class="point user" data-source="user" data-index="9" data-quote="This is first-child syndrome." data-ytquery="This is first-child syndrome. tv show scene" data-point='{"quote": "This is first-child syndrome.", "category": "phrase", "frequency": "low", "context": "Cameron explains Sal&#39;s jealousy — &#39;She&#39;s like a first child jealous of the new baby&#39;", "explanation": "A made-up but recognizable phrase. &#39;First-child syndrome&#39; = when an older child gets jealous of a new sibling. (老大综合征) Cameron applies it to Sal — she&#39;s acting like a jealous older sibling to Lily. It&#39;s a joke, but the phrase is understandable in context.", "examples": ["My dog has first-child syndrome — he gets jealous when I pet the cat.", "She&#39;s showing first-child syndrome now that her best friend has a new boyfriend.", "It&#39;s classic first-child syndrome: he wants all the attention."], "related": ["jealousy", "sibling rivalry", "acting out", "attention-seeking"], "formality": "informal", "source": "user"}'>
+            <div class="point ai" data-source="ai" data-index="3" data-quote="Take it down a notch, Jethro." data-ytquery="Take it down a notch, Jethro. tv show scene" data-point='{"quote": "Take it down a notch, Jethro.", "category": "phrase", "frequency": "high", "context": "Jay tells Manny to calm down after Manny greets Haley flirtatiously.", "explanation": "A colorful way to say &#39;calm down&#39; or &#39;tone it down.&#39; (收敛点、冷静点) &#39;Notch&#39; means level — so &#39;take it down a notch&#39; = reduce your intensity. &#39;Jethro&#39; is a name associated with the Beverly Hillbillies, used here mockingly to imply Manny is being a country bumpkin. The cluster includes &#39;dial it back&#39;, &#39;chill out&#39;, &#39;rein it in&#39;. Jay&#39;s tone is sarcastic and dismissive.", "examples": ["Hey, take it down a notch — you&#39;re yelling in the library.", "She was getting too excited, so I told her to dial it back.", "If you keep bragging, someone&#39;s gonna tell you to rein it in."], "related": ["dial it back", "chill out", "rein it in", "pump the brakes", "cool it", "settle down"], "formality": "casual", "source": "ai"}'>
                 <div class="point-summary" onclick="togglePoint(this)">
                     <div class="point-left">
-                        <span class="badge badge-user">Your note</span>
-                        <span class="cat">💬 phrase</span>
-                        <span class="freq freq-low">low</span>
-                    </div>
-                    <div class="point-quote">"This is first-child syndrome."</div>
-                    <div class="point-hint">A made-up but recognizable phrase. 'First-child syndrome' = when an older child ...</div>
-                    <div class="point-actions">
-                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
-                        <span class="expand-icon">▸</span>
-                    </div>
-                </div>
-                <div class="point-detail">
-                    <div class="detail-context">Cameron explains Sal's jealousy — 'She's like a first child jealous of the new baby'</div>
-                    <div class="detail-explanation">A made-up but recognizable phrase. 'First-child syndrome' = when an older child gets jealous of a new sibling. (老大综合征) Cameron applies it to Sal — she's acting like a jealous older sibling to Lily. It's a joke, but the phrase is understandable in context.</div>
-                    <div class="examples"><span class="label">Examples</span><ul><li>My dog has first-child syndrome — he gets jealous when I pet the cat.</li><li>She's showing first-child syndrome now that her best friend has a new boyfriend.</li><li>It's classic first-child syndrome: he wants all the attention.</li></ul></div>
-                    <div class="related"><span class="label">See also</span> <span class="tag">jealousy</span><span class="tag">sibling rivalry</span><span class="tag">acting out</span><span class="tag">attention-seeking</span></div>
-                    <div class="detail-meta">informal</div>
-                    <div class="video-container" data-loaded="0">
-                        <div class="video-placeholder">Loading video clip...</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="point user" data-source="user" data-index="10" data-quote="Put a little spittle." data-ytquery="Put a little spittle. tv show scene" data-point='{"quote": "Put a little spittle.", "category": "phrase", "frequency": "medium", "context": "Mitchell points out that Cameron has a bit of spit on his face — affectionate", "explanation": "A tiny but perfect slice of domestic life. &#39;Spittle&#39; = spit. &#39;Put a little spittle&#39; = &#39;You have a bit of spit on your face&#39;. (你脸上有点口水) It&#39;s the kind of small, intimate observation couples make. The humor is in the casualness — it&#39;s not gross, just normal.", "examples": ["You&#39;ve got a little something on your chin — just there.", "She wiped a bit of food off his face without even thinking.", "He had a crumb on his shirt; I pointed it out without a second thought."], "related": ["a little something", "a speck", "a crumb", "a bit of"], "formality": "informal", "source": "user"}'>
-                <div class="point-summary" onclick="togglePoint(this)">
-                    <div class="point-left">
-                        <span class="badge badge-user">Your note</span>
-                        <span class="cat">💬 phrase</span>
-                        <span class="freq freq-medium">medium</span>
-                    </div>
-                    <div class="point-quote">"Put a little spittle."</div>
-                    <div class="point-hint">A tiny but perfect slice of domestic life. 'Spittle' = spit. 'Put a little spitt...</div>
-                    <div class="point-actions">
-                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
-                        <span class="expand-icon">▸</span>
-                    </div>
-                </div>
-                <div class="point-detail">
-                    <div class="detail-context">Mitchell points out that Cameron has a bit of spit on his face — affectionate</div>
-                    <div class="detail-explanation">A tiny but perfect slice of domestic life. 'Spittle' = spit. 'Put a little spittle' = 'You have a bit of spit on your face'. (你脸上有点口水) It's the kind of small, intimate observation couples make. The humor is in the casualness — it's not gross, just normal.</div>
-                    <div class="examples"><span class="label">Examples</span><ul><li>You've got a little something on your chin — just there.</li><li>She wiped a bit of food off his face without even thinking.</li><li>He had a crumb on his shirt; I pointed it out without a second thought.</li></ul></div>
-                    <div class="related"><span class="label">See also</span> <span class="tag">a little something</span><span class="tag">a speck</span><span class="tag">a crumb</span><span class="tag">a bit of</span></div>
-                    <div class="detail-meta">informal</div>
-                    <div class="video-container" data-loaded="0">
-                        <div class="video-placeholder">Loading video clip...</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="point user" data-source="user" data-index="11" data-quote="You're taking this too personally." data-ytquery="Youre taking this too personally. tv show scene" data-point='{"quote": "You&#39;re taking this too personally.", "category": "phrase", "frequency": "high", "context": "Gloria tells Jay he&#39;s overreacting to Haley wanting to go to a party", "explanation": "A classic conflict-phrase. &#39;Taking something personally&#39; = interpreting something as a personal attack when it isn&#39;t. (你太往心里去了) Gloria is saying: Haley&#39;s desire to party isn&#39;t about rejecting you, Jay. It&#39;s a mature, de-escalating move.", "examples": ["Don&#39;t take it personally — she&#39;s just in a bad mood.", "He took my criticism personally and got defensive.", "I know you&#39;re upset, but try not to take it personally; it&#39;s not about you."], "related": ["get defensive", "take offense", "be thin-skinned", "overreact", "make it about yourself"], "formality": "informal", "source": "user"}'>
-                <div class="point-summary" onclick="togglePoint(this)">
-                    <div class="point-left">
-                        <span class="badge badge-user">Your note</span>
+                        <span class="badge badge-ext">Extras</span>
                         <span class="cat">💬 phrase</span>
                         <span class="freq freq-high">high</span>
                     </div>
-                    <div class="point-quote">"You're taking this too personally."</div>
-                    <div class="point-hint">A classic conflict-phrase. 'Taking something personally' = interpreting somethin...</div>
+                    <div class="point-quote">"Take it down a notch, Jethro."</div>
+                    <div class="point-hint">A colorful way to say 'calm down' or 'tone it down.' (收敛点、冷静点) 'Notch' means lev...</div>
                     <div class="point-actions">
                         <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
                         <span class="expand-icon">▸</span>
                     </div>
                 </div>
                 <div class="point-detail">
-                    <div class="detail-context">Gloria tells Jay he's overreacting to Haley wanting to go to a party</div>
-                    <div class="detail-explanation">A classic conflict-phrase. 'Taking something personally' = interpreting something as a personal attack when it isn't. (你太往心里去了) Gloria is saying: Haley's desire to party isn't about rejecting you, Jay. It's a mature, de-escalating move.</div>
-                    <div class="examples"><span class="label">Examples</span><ul><li>Don't take it personally — she's just in a bad mood.</li><li>He took my criticism personally and got defensive.</li><li>I know you're upset, but try not to take it personally; it's not about you.</li></ul></div>
-                    <div class="related"><span class="label">See also</span> <span class="tag">get defensive</span><span class="tag">take offense</span><span class="tag">be thin-skinned</span><span class="tag">overreact</span><span class="tag">make it about yourself</span></div>
-                    <div class="detail-meta">informal</div>
+                    <div class="detail-context">Jay tells Manny to calm down after Manny greets Haley flirtatiously.</div>
+                    <div class="detail-explanation">A colorful way to say 'calm down' or 'tone it down.' (收敛点、冷静点) 'Notch' means level — so 'take it down a notch' = reduce your intensity. 'Jethro' is a name associated with the Beverly Hillbillies, used here mockingly to imply Manny is being a country bumpkin. The cluster includes 'dial it back', 'chill out', 'rein it in'. Jay's tone is sarcastic and dismissive.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>Hey, take it down a notch — you're yelling in the library.</li><li>She was getting too excited, so I told her to dial it back.</li><li>If you keep bragging, someone's gonna tell you to rein it in.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">dial it back</span><span class="tag">chill out</span><span class="tag">rein it in</span><span class="tag">pump the brakes</span><span class="tag">cool it</span><span class="tag">settle down</span></div>
+                    <div class="detail-meta">casual</div>
                     <div class="video-container" data-loaded="0">
                         <div class="video-placeholder">Loading video clip...</div>
                     </div>
                 </div>
             </div>
             
-            <div class="point user" data-source="user" data-index="12" data-quote="You try to put something over on me, you're gonna lose." data-ytquery="You try to put something over on me, youre gonna lose. tv show scene" data-point='{"quote": "You try to put something over on me, you&#39;re gonna lose.", "category": "phrase", "frequency": "low", "context": "Jay warns Gloria that Haley can&#39;t trick him — he&#39;s been there before", "explanation": "This is the full sentence from the user&#39;s earlier annotation. &#39;Put something over on someone&#39; = trick/deceive. &#39;You&#39;re gonna lose&#39; = I&#39;ll catch you. (想骗我？你输定了) It&#39;s a warning, but also a boast: Jay is confident in his experience. Very paternal.", "examples": ["Nice try, but you can&#39;t put one over on me — I know that trick.", "She thought she could put something over on the teacher, but the teacher saw right through it.", "If you try to put something over on your mom, she&#39;ll figure it out immediately."], "related": ["pull a fast one", "take someone for a ride", "con", "trick", "fool"], "formality": "informal", "source": "user"}'>
+            <div class="point ai" data-source="ai" data-index="4" data-quote="I'm so screwed." data-ytquery="Im so screwed. tv show scene" data-point='{"quote": "I&#39;m so screwed.", "category": "phrase", "frequency": "high", "context": "Claire realizes she has no real anniversary gift for Phil after her elaborate plan fails.", "explanation": "A very common informal expression meaning &#39;I&#39;m in big trouble&#39; or &#39;I&#39;m doomed.&#39; (我完蛋了) It&#39;s not vulgar despite the word &#39;screwed&#39; — it&#39;s mild slang. The cluster: &#39;I&#39;m dead&#39;, &#39;I&#39;m toast&#39;, &#39;I&#39;m in deep&#39;, &#39;I&#39;m done for&#39;. Use it when you&#39;ve made a mistake or something bad is inevitable. Don&#39;t use in formal situations.", "examples": ["I forgot the meeting starts in five minutes — I&#39;m so screwed.", "If Mom finds out I broke the vase, I&#39;m dead.", "He didn&#39;t study at all; he&#39;s totally toast for the exam."], "related": ["I&#39;m dead", "I&#39;m toast", "I&#39;m done for", "I&#39;m in deep", "I&#39;m finished", "I&#39;m in trouble"], "formality": "casual", "source": "ai"}'>
                 <div class="point-summary" onclick="togglePoint(this)">
                     <div class="point-left">
-                        <span class="badge badge-user">Your note</span>
+                        <span class="badge badge-ext">Extras</span>
                         <span class="cat">💬 phrase</span>
-                        <span class="freq freq-low">low</span>
+                        <span class="freq freq-high">high</span>
                     </div>
-                    <div class="point-quote">"You try to put something over on me, you're gonna lose."</div>
-                    <div class="point-hint">This is the full sentence from the user's earlier annotation. 'Put something ove...</div>
+                    <div class="point-quote">"I'm so screwed."</div>
+                    <div class="point-hint">A very common informal expression meaning 'I'm in big trouble' or 'I'm doomed.' ...</div>
                     <div class="point-actions">
                         <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
                         <span class="expand-icon">▸</span>
                     </div>
                 </div>
                 <div class="point-detail">
-                    <div class="detail-context">Jay warns Gloria that Haley can't trick him — he's been there before</div>
-                    <div class="detail-explanation">This is the full sentence from the user's earlier annotation. 'Put something over on someone' = trick/deceive. 'You're gonna lose' = I'll catch you. (想骗我？你输定了) It's a warning, but also a boast: Jay is confident in his experience. Very paternal.</div>
-                    <div class="examples"><span class="label">Examples</span><ul><li>Nice try, but you can't put one over on me — I know that trick.</li><li>She thought she could put something over on the teacher, but the teacher saw right through it.</li><li>If you try to put something over on your mom, she'll figure it out immediately.</li></ul></div>
-                    <div class="related"><span class="label">See also</span> <span class="tag">pull a fast one</span><span class="tag">take someone for a ride</span><span class="tag">con</span><span class="tag">trick</span><span class="tag">fool</span></div>
-                    <div class="detail-meta">informal</div>
+                    <div class="detail-context">Claire realizes she has no real anniversary gift for Phil after her elaborate plan fails.</div>
+                    <div class="detail-explanation">A very common informal expression meaning 'I'm in big trouble' or 'I'm doomed.' (我完蛋了) It's not vulgar despite the word 'screwed' — it's mild slang. The cluster: 'I'm dead', 'I'm toast', 'I'm in deep', 'I'm done for'. Use it when you've made a mistake or something bad is inevitable. Don't use in formal situations.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>I forgot the meeting starts in five minutes — I'm so screwed.</li><li>If Mom finds out I broke the vase, I'm dead.</li><li>He didn't study at all; he's totally toast for the exam.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">I'm dead</span><span class="tag">I'm toast</span><span class="tag">I'm done for</span><span class="tag">I'm in deep</span><span class="tag">I'm finished</span><span class="tag">I'm in trouble</span></div>
+                    <div class="detail-meta">casual</div>
                     <div class="video-container" data-loaded="0">
                         <div class="video-placeholder">Loading video clip...</div>
                     </div>
                 </div>
             </div>
             
-            <div class="point user" data-source="user" data-index="13" data-quote="Who knows how many nights like this I got left?" data-ytquery="Who knows how many nights like this I got left? tv show scene" data-point='{"quote": "Who knows how many nights like this I got left?", "category": "phrase", "frequency": "medium", "context": "Jay says this as a guilt-trippy justification for keeping the kids at his house", "explanation": "A classic emotional manipulation — using mortality to get what you want. (谁知道我还能有几次这样的夜晚) It&#39;s a joke because Jay is healthy, but he plays the &#39;old man&#39; card. The phrase &#39;who knows how many... I got left&#39; is a formula for creating urgency or guilt.", "examples": ["Who knows how many more Christmases we&#39;ll have together? Let&#39;s make it special.", "He said, &#39;Who knows how many more trips I can take?&#39; to get us to agree.", "She used the &#39;who knows how much time I have left&#39; line to get out of work."], "related": ["play the age card", "guilt trip", "mortality card", "make the most of it"], "formality": "informal", "source": "user"}'>
+            <div class="point ai" data-source="ai" data-index="5" data-quote="Raise the roof, Lily. We're calling Sal." data-ytquery="Raise the roof, Lily. Were calling Sal. tv show scene" data-point='{"quote": "Raise the roof, Lily. We&#39;re calling Sal.", "category": "phrase", "frequency": "medium", "context": "Cameron gets excited about calling their wild friend Sal to go out.", "explanation": "A fun expression meaning to celebrate noisily, like partying or cheering. (嗨起来、热闹起来) Literally, it&#39;s about making so much noise you lift the roof off. Used when someone&#39;s excited about something. Cluster: &#39;let&#39;s party&#39;, &#39;turn up&#39;, &#39;get hyped&#39;. Cameron is joking with baby Lily. It&#39;s playful and informal.", "examples": ["We just won the game — raise the roof, everyone!", "When the song came on, the whole crowd raised the roof.", "She got that promotion, so we&#39;re gonna raise the roof tonight."], "related": ["let&#39;s party", "turn up", "get hyped", "make some noise", "get the party started", "let&#39;s go"], "formality": "casual", "source": "ai"}'>
                 <div class="point-summary" onclick="togglePoint(this)">
                     <div class="point-left">
-                        <span class="badge badge-user">Your note</span>
+                        <span class="badge badge-ext">Extras</span>
                         <span class="cat">💬 phrase</span>
                         <span class="freq freq-medium">medium</span>
                     </div>
-                    <div class="point-quote">"Who knows how many nights like this I got left?"</div>
-                    <div class="point-hint">A classic emotional manipulation — using mortality to get what you want. (谁知道我还能...</div>
+                    <div class="point-quote">"Raise the roof, Lily. We're calling Sal."</div>
+                    <div class="point-hint">A fun expression meaning to celebrate noisily, like partying or cheering. (嗨起来、热...</div>
                     <div class="point-actions">
                         <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
                         <span class="expand-icon">▸</span>
                     </div>
                 </div>
                 <div class="point-detail">
-                    <div class="detail-context">Jay says this as a guilt-trippy justification for keeping the kids at his house</div>
-                    <div class="detail-explanation">A classic emotional manipulation — using mortality to get what you want. (谁知道我还能有几次这样的夜晚) It's a joke because Jay is healthy, but he plays the 'old man' card. The phrase 'who knows how many... I got left' is a formula for creating urgency or guilt.</div>
-                    <div class="examples"><span class="label">Examples</span><ul><li>Who knows how many more Christmases we'll have together? Let's make it special.</li><li>He said, 'Who knows how many more trips I can take?' to get us to agree.</li><li>She used the 'who knows how much time I have left' line to get out of work.</li></ul></div>
-                    <div class="related"><span class="label">See also</span> <span class="tag">play the age card</span><span class="tag">guilt trip</span><span class="tag">mortality card</span><span class="tag">make the most of it</span></div>
-                    <div class="detail-meta">informal</div>
+                    <div class="detail-context">Cameron gets excited about calling their wild friend Sal to go out.</div>
+                    <div class="detail-explanation">A fun expression meaning to celebrate noisily, like partying or cheering. (嗨起来、热闹起来) Literally, it's about making so much noise you lift the roof off. Used when someone's excited about something. Cluster: 'let's party', 'turn up', 'get hyped'. Cameron is joking with baby Lily. It's playful and informal.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>We just won the game — raise the roof, everyone!</li><li>When the song came on, the whole crowd raised the roof.</li><li>She got that promotion, so we're gonna raise the roof tonight.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">let's party</span><span class="tag">turn up</span><span class="tag">get hyped</span><span class="tag">make some noise</span><span class="tag">get the party started</span><span class="tag">let's go</span></div>
+                    <div class="detail-meta">casual</div>
                     <div class="video-container" data-loaded="0">
                         <div class="video-placeholder">Loading video clip...</div>
                     </div>
                 </div>
             </div>
             
-            <div class="point user" data-source="user" data-index="14" data-quote="I will track you down." data-ytquery="I will track you down. tv show scene" data-point='{"quote": "I will track you down.", "category": "phrase", "frequency": "medium", "context": "Jay says this to Haley as a playful threat — &#39;I&#39;ll find you if you&#39;re late&#39;", "explanation": "A half-joking, half-serious parental threat. &#39;Track you down&#39; = find you wherever you are. (我会找到你的) It&#39;s a control move disguised as a joke — Jay wants Haley to know he&#39;s watching, but he says it with a smile. Very dad-like.", "examples": ["If you&#39;re not home by midnight, I will track you down.", "My dad always said he&#39;d track me down if I didn&#39;t call.", "She joked, &#39;I&#39;ll track you down if you forget my birthday.&#39;"], "related": ["find you", "hunt you down", "come after you", "track you to the ends of the earth"], "formality": "informal", "source": "user"}'>
+            <div class="point ai" data-source="ai" data-index="6" data-quote="You want to touch 'em?" data-ytquery="You want to touch em? tv show scene" data-point='{"quote": "You want to touch &#39;em?", "category": "phrase", "frequency": "low", "context": "Sal, after revealing her new breast implants, asks Mitchell if he wants to touch them.", "explanation": "A very direct and provocative question, typical of Sal&#39;s uninhibited personality. (想摸摸看吗) This is NOT a polite or typical thing to say — it&#39;s deliberately shocking and humorous. The cluster of similarly bold offers: &#39;Go ahead, feel free&#39; (polite), &#39;Knock yourself out&#39; (sarcastic). This line highlights Sal&#39;s character: zero boundaries.", "examples": ["I just got my hair done — you want to run your fingers through it?", "He showed off his new tattoo and asked, &#39;Wanna touch it?&#39;", "She held out her ring and said, &#39;Go ahead, try it on.&#39;"], "related": ["go ahead", "feel free", "knock yourself out", "be my guest", "here, have a look"], "formality": "casual", "source": "ai"}'>
                 <div class="point-summary" onclick="togglePoint(this)">
                     <div class="point-left">
-                        <span class="badge badge-user">Your note</span>
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-low">low</span>
+                    </div>
+                    <div class="point-quote">"You want to touch 'em?"</div>
+                    <div class="point-hint">A very direct and provocative question, typical of Sal's uninhibited personality...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Sal, after revealing her new breast implants, asks Mitchell if he wants to touch them.</div>
+                    <div class="detail-explanation">A very direct and provocative question, typical of Sal's uninhibited personality. (想摸摸看吗) This is NOT a polite or typical thing to say — it's deliberately shocking and humorous. The cluster of similarly bold offers: 'Go ahead, feel free' (polite), 'Knock yourself out' (sarcastic). This line highlights Sal's character: zero boundaries.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>I just got my hair done — you want to run your fingers through it?</li><li>He showed off his new tattoo and asked, 'Wanna touch it?'</li><li>She held out her ring and said, 'Go ahead, try it on.'</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">go ahead</span><span class="tag">feel free</span><span class="tag">knock yourself out</span><span class="tag">be my guest</span><span class="tag">here, have a look</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="7" data-quote="I'm gay, not dead." data-ytquery="Im gay, not dead. tv show scene" data-point='{"quote": "I&#39;m gay, not dead.", "category": "phrase", "frequency": "medium", "context": "Mitchell responds to Sal&#39;s offer to touch her breasts.", "explanation": "A witty retort meaning &#39;Just because I&#39;m gay doesn&#39;t mean I don&#39;t appreciate attractive things.&#39; (我是同性恋又不是死人) It&#39;s a humorous way to say &#39;I have eyes, I can appreciate beauty.&#39; The structure &#39;I&#39;m X, not Y&#39; is a common pattern for playful deflections. Cluster: &#39;I&#39;m blind, not stupid&#39;, &#39;I&#39;m on a diet, not dead&#39;.", "examples": ["When offered dessert, she said, &#39;I&#39;m full, not dead.&#39;", "He looked at the sports car and said, &#39;I&#39;m married, not blind.&#39;", "She saw the chocolate cake and said, &#39;I&#39;m on a diet, not crazy.&#39;"], "related": ["I&#39;m [adjective], not [adjective]", "I have eyes, don&#39;t I?", "I may be [something], but I&#39;m not [something]"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-medium">medium</span>
+                    </div>
+                    <div class="point-quote">"I'm gay, not dead."</div>
+                    <div class="point-hint">A witty retort meaning 'Just because I'm gay doesn't mean I don't appreciate att...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Mitchell responds to Sal's offer to touch her breasts.</div>
+                    <div class="detail-explanation">A witty retort meaning 'Just because I'm gay doesn't mean I don't appreciate attractive things.' (我是同性恋又不是死人) It's a humorous way to say 'I have eyes, I can appreciate beauty.' The structure 'I'm X, not Y' is a common pattern for playful deflections. Cluster: 'I'm blind, not stupid', 'I'm on a diet, not dead'.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>When offered dessert, she said, 'I'm full, not dead.'</li><li>He looked at the sports car and said, 'I'm married, not blind.'</li><li>She saw the chocolate cake and said, 'I'm on a diet, not crazy.'</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">I'm [adjective], not [adjective]</span><span class="tag">I have eyes, don't I?</span><span class="tag">I may be [something], but I'm not [something]</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="8" data-quote="You struck oil." data-ytquery="You struck oil. tv show scene" data-point='{"quote": "You struck oil.", "category": "phrase", "frequency": "medium", "context": "Cameron tells Mitchell that his suggestion of a night out is a great idea.", "explanation": "An idiom meaning &#39;you hit upon something valuable or successful.&#39; (你撞大运了、你找对了) Literally from oil drilling — when you strike oil, you&#39;ve found wealth. Used metaphorically. Cluster: &#39;hit the jackpot&#39;, &#39;hit the nail on the head&#39;, &#39;you&#39;re onto something&#39;. It&#39;s informal and positive.", "examples": ["When she suggested the new restaurant, everyone agreed — you struck oil!", "His idea for the app was brilliant; he really struck oil with that one.", "If you think that strategy will work, you&#39;ve struck oil."], "related": ["hit the jackpot", "hit the nail on the head", "you&#39;re onto something", "bingo", "eureka", "that&#39;s it"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-medium">medium</span>
+                    </div>
+                    <div class="point-quote">"You struck oil."</div>
+                    <div class="point-hint">An idiom meaning 'you hit upon something valuable or successful.' (你撞大运了、你找对了) L...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Cameron tells Mitchell that his suggestion of a night out is a great idea.</div>
+                    <div class="detail-explanation">An idiom meaning 'you hit upon something valuable or successful.' (你撞大运了、你找对了) Literally from oil drilling — when you strike oil, you've found wealth. Used metaphorically. Cluster: 'hit the jackpot', 'hit the nail on the head', 'you're onto something'. It's informal and positive.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>When she suggested the new restaurant, everyone agreed — you struck oil!</li><li>His idea for the app was brilliant; he really struck oil with that one.</li><li>If you think that strategy will work, you've struck oil.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">hit the jackpot</span><span class="tag">hit the nail on the head</span><span class="tag">you're onto something</span><span class="tag">bingo</span><span class="tag">eureka</span><span class="tag">that's it</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="9" data-quote="The more, the merrier." data-ytquery="The more, the merrier. tv show scene" data-point='{"quote": "The more, the merrier.", "category": "phrase", "frequency": "high", "context": "Jay says this when Gloria mentions all the cousins will be sleeping over.", "explanation": "A classic proverb meaning that having more people makes things more enjoyable. (人越多越热闹) Used when welcoming additional guests. The structure &#39;the [comparative], the [comparative]&#39; is a useful pattern: &#39;the sooner, the better&#39;, &#39;the bigger, the better&#39;. Always informal and friendly.", "examples": ["Can my friend join us for dinner? Sure, the more, the merrier.", "Bring your siblings to the party — the more, the merrier!", "They said I could bring a plus-one, so I brought three. The more, the merrier!"], "related": ["the sooner the better", "the bigger the better", "the more the better", "all are welcome"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-high">high</span>
+                    </div>
+                    <div class="point-quote">"The more, the merrier."</div>
+                    <div class="point-hint">A classic proverb meaning that having more people makes things more enjoyable. (...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Jay says this when Gloria mentions all the cousins will be sleeping over.</div>
+                    <div class="detail-explanation">A classic proverb meaning that having more people makes things more enjoyable. (人越多越热闹) Used when welcoming additional guests. The structure 'the [comparative], the [comparative]' is a useful pattern: 'the sooner, the better', 'the bigger, the better'. Always informal and friendly.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>Can my friend join us for dinner? Sure, the more, the merrier.</li><li>Bring your siblings to the party — the more, the merrier!</li><li>They said I could bring a plus-one, so I brought three. The more, the merrier!</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">the sooner the better</span><span class="tag">the bigger the better</span><span class="tag">the more the better</span><span class="tag">all are welcome</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="10" data-quote="That's high-larious." data-ytquery="Thats high-larious. tv show scene" data-point='{"quote": "That&#39;s high-larious.", "category": "phrase", "frequency": "low", "context": "Claire sarcastically responds to Haley&#39;s suggestion that she go to a party instead of Grandpa&#39;s.", "explanation": "A playful blend of &#39;high&#39; and &#39;hilarious&#39; — meaning &#39;very funny, but not really.&#39; (真搞笑、呵呵) It&#39;s sarcastic, usually said when you disagree or think something is ridiculous. Cluster: &#39;that&#39;s rich&#39;, &#39;good one&#39;, &#39;you&#39;re hilarious&#39;. The tone drips with sarcasm.", "examples": ["You think I&#39;ll lend you money? High-larious.", "He said he&#39;d clean his room without being asked. High-larious.", "She claimed she&#39;d finish the project early — high-larious."], "related": ["that&#39;s rich", "good one", "you&#39;re hilarious", "very funny", "I&#39;m laughing", "ha ha"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-low">low</span>
+                    </div>
+                    <div class="point-quote">"That's high-larious."</div>
+                    <div class="point-hint">A playful blend of 'high' and 'hilarious' — meaning 'very funny, but not really....</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Claire sarcastically responds to Haley's suggestion that she go to a party instead of Grandpa's.</div>
+                    <div class="detail-explanation">A playful blend of 'high' and 'hilarious' — meaning 'very funny, but not really.' (真搞笑、呵呵) It's sarcastic, usually said when you disagree or think something is ridiculous. Cluster: 'that's rich', 'good one', 'you're hilarious'. The tone drips with sarcasm.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>You think I'll lend you money? High-larious.</li><li>He said he'd clean his room without being asked. High-larious.</li><li>She claimed she'd finish the project early — high-larious.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">that's rich</span><span class="tag">good one</span><span class="tag">you're hilarious</span><span class="tag">very funny</span><span class="tag">I'm laughing</span><span class="tag">ha ha</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="11" data-quote="Make it official." data-ytquery="Make it official. tv show scene" data-point='{"quote": "Make it official.", "category": "phrase", "frequency": "high", "context": "Phil says this sarcastically about Claire&#39;s coupon for free hugs.", "explanation": "A common phrase meaning to formalize something, often used humorously for trivial things. (正式确定) In Phil&#39;s case, he&#39;s mocking that hugs are usually free, but now they&#39;re &#39;official.&#39; Cluster: &#39;seal the deal&#39;, &#39;make it legal&#39;, &#39;set it in stone&#39;. Used both seriously and playfully.", "examples": ["We agreed to meet at 6. Let&#39;s make it official and put it in the calendar.", "They&#39;ve been dating for a year; now they want to make it official with a ring.", "You said you&#39;d help — should we make it official and sign a contract?"], "related": ["seal the deal", "set it in stone", "make it legal", "formalize", "lock it in", "cement it"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-high">high</span>
+                    </div>
+                    <div class="point-quote">"Make it official."</div>
+                    <div class="point-hint">A common phrase meaning to formalize something, often used humorously for trivia...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Phil says this sarcastically about Claire's coupon for free hugs.</div>
+                    <div class="detail-explanation">A common phrase meaning to formalize something, often used humorously for trivial things. (正式确定) In Phil's case, he's mocking that hugs are usually free, but now they're 'official.' Cluster: 'seal the deal', 'make it legal', 'set it in stone'. Used both seriously and playfully.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>We agreed to meet at 6. Let's make it official and put it in the calendar.</li><li>They've been dating for a year; now they want to make it official with a ring.</li><li>You said you'd help — should we make it official and sign a contract?</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">seal the deal</span><span class="tag">set it in stone</span><span class="tag">make it legal</span><span class="tag">formalize</span><span class="tag">lock it in</span><span class="tag">cement it</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="12" data-quote="You're impossible to buy for." data-ytquery="Youre impossible to buy for. tv show scene" data-point='{"quote": "You&#39;re impossible to buy for.", "category": "phrase", "frequency": "high", "context": "Claire explains why she gave Phil a coupon book instead of a real gift.", "explanation": "A common complaint meaning someone is very hard to shop for because they don&#39;t show interest in things or have specific taste. (你太难买东西了) Cluster: &#39;hard to shop for&#39;, &#39;picky&#39;, &#39;fussy&#39;. Used when gift-giving is stressful. Always about a person, not a situation.", "examples": ["My dad is impossible to buy for — he already has everything.", "She&#39;s so particular; she&#39;s impossible to buy for.", "I find tech-savvy friends impossible to buy for."], "related": ["hard to shop for", "picky", "fussy", "particular", "difficult to please", "high-maintenance"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-high">high</span>
+                    </div>
+                    <div class="point-quote">"You're impossible to buy for."</div>
+                    <div class="point-hint">A common complaint meaning someone is very hard to shop for because they don't s...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Claire explains why she gave Phil a coupon book instead of a real gift.</div>
+                    <div class="detail-explanation">A common complaint meaning someone is very hard to shop for because they don't show interest in things or have specific taste. (你太难买东西了) Cluster: 'hard to shop for', 'picky', 'fussy'. Used when gift-giving is stressful. Always about a person, not a situation.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>My dad is impossible to buy for — he already has everything.</li><li>She's so particular; she's impossible to buy for.</li><li>I find tech-savvy friends impossible to buy for.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">hard to shop for</span><span class="tag">picky</span><span class="tag">fussy</span><span class="tag">particular</span><span class="tag">difficult to please</span><span class="tag">high-maintenance</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="13" data-quote="I can't not think of things I want." data-ytquery="I cant not think of things I want. tv show scene" data-point='{"quote": "I can&#39;t not think of things I want.", "category": "phrase", "frequency": "medium", "context": "Phil lists all the things he wants, contradicting Claire&#39;s claim that he never wants anything.", "explanation": "A double negative for emphasis — &#39;I can&#39;t stop thinking of things I want.&#39; (我忍不住会想我要的东西) This structure &#39;can&#39;t not [verb]&#39; is informal and emphatic. Cluster: &#39;I can&#39;t help but [verb]&#39;, &#39;I keep [verb]ing&#39;. It&#39;s stronger than a simple positive.", "examples": ["I can&#39;t not check my phone every five minutes.", "She can&#39;t not sing along when her favorite song plays.", "He can&#39;t not eat dessert after dinner."], "related": ["I can&#39;t help but", "I keep on", "I&#39;m compelled to", "I have to", "I&#39;m always"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-medium">medium</span>
+                    </div>
+                    <div class="point-quote">"I can't not think of things I want."</div>
+                    <div class="point-hint">A double negative for emphasis — 'I can't stop thinking of things I want.' (我忍不住...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Phil lists all the things he wants, contradicting Claire's claim that he never wants anything.</div>
+                    <div class="detail-explanation">A double negative for emphasis — 'I can't stop thinking of things I want.' (我忍不住会想我要的东西) This structure 'can't not [verb]' is informal and emphatic. Cluster: 'I can't help but [verb]', 'I keep [verb]ing'. It's stronger than a simple positive.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>I can't not check my phone every five minutes.</li><li>She can't not sing along when her favorite song plays.</li><li>He can't not eat dessert after dinner.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">I can't help but</span><span class="tag">I keep on</span><span class="tag">I'm compelled to</span><span class="tag">I have to</span><span class="tag">I'm always</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="14" data-quote="Hanging out with her is like an Amsterdam Saturday night every day of the week." data-ytquery="Hanging out with her is like an Amsterdam Saturday night eve tv show scene" data-point='{"quote": "Hanging out with her is like an Amsterdam Saturday night every day of the week.", "category": "phrase", "frequency": "low", "context": "Cameron describes Sal&#39;s wild, uninhibited personality.", "explanation": "A hyperbolic simile comparing Sal&#39;s behavior to a wild Amsterdam weekend. (跟她玩就像天天过阿姆斯特丹的周六夜) Amsterdam is known for its liberal nightlife. &#39;Every day of the week&#39; emphasizes constant craziness. Cluster: &#39;non-stop&#39;, &#39;24/7&#39;, &#39;a party every night&#39;. Very descriptive and vivid.", "examples": ["Living with him is like a comedy show every day of the week.", "Her cooking makes dinner feel like a five-star restaurant every night.", "Being with them is like a vacation every day of the week."], "related": ["non-stop", "24/7", "a party every night", "constant", "always on"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-low">low</span>
+                    </div>
+                    <div class="point-quote">"Hanging out with her is like an Amsterdam Saturday night every day of the week."</div>
+                    <div class="point-hint">A hyperbolic simile comparing Sal's behavior to a wild Amsterdam weekend. (跟她玩就像...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Cameron describes Sal's wild, uninhibited personality.</div>
+                    <div class="detail-explanation">A hyperbolic simile comparing Sal's behavior to a wild Amsterdam weekend. (跟她玩就像天天过阿姆斯特丹的周六夜) Amsterdam is known for its liberal nightlife. 'Every day of the week' emphasizes constant craziness. Cluster: 'non-stop', '24/7', 'a party every night'. Very descriptive and vivid.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>Living with him is like a comedy show every day of the week.</li><li>Her cooking makes dinner feel like a five-star restaurant every night.</li><li>Being with them is like a vacation every day of the week.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">non-stop</span><span class="tag">24/7</span><span class="tag">a party every night</span><span class="tag">constant</span><span class="tag">always on</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="15" data-quote="I will track you down." data-ytquery="I will track you down. tv show scene" data-point='{"quote": "I will track you down.", "category": "phrase", "frequency": "medium", "context": "Jay threatens Haley that he will find her if she goes to the party.", "explanation": "A semi-serious threat meaning &#39;I will find you no matter what.&#39; (我会找到你的) Usually said by parents or authority figures. Cluster: &#39;I&#39;ll hunt you down&#39;, &#39;I&#39;ll find you&#39;, &#39;you can&#39;t hide from me&#39;. Tone can be playful or stern. Jay says it with a smile but means it.", "examples": ["If you take my car without asking, I will track you down.", "She said she&#39;d track me down if I didn&#39;t call her back.", "Don&#39;t worry, I&#39;ll track you down at the party later."], "related": ["I&#39;ll hunt you down", "I&#39;ll find you", "you can&#39;t hide from me", "I&#39;ll catch up with you", "I&#39;ll get you"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
                         <span class="cat">💬 phrase</span>
                         <span class="freq freq-medium">medium</span>
                     </div>
                     <div class="point-quote">"I will track you down."</div>
-                    <div class="point-hint">A half-joking, half-serious parental threat. 'Track you down' = find you whereve...</div>
+                    <div class="point-hint">A semi-serious threat meaning 'I will find you no matter what.' (我会找到你的) Usually...</div>
                     <div class="point-actions">
                         <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
                         <span class="expand-icon">▸</span>
                     </div>
                 </div>
                 <div class="point-detail">
-                    <div class="detail-context">Jay says this to Haley as a playful threat — 'I'll find you if you're late'</div>
-                    <div class="detail-explanation">A half-joking, half-serious parental threat. 'Track you down' = find you wherever you are. (我会找到你的) It's a control move disguised as a joke — Jay wants Haley to know he's watching, but he says it with a smile. Very dad-like.</div>
-                    <div class="examples"><span class="label">Examples</span><ul><li>If you're not home by midnight, I will track you down.</li><li>My dad always said he'd track me down if I didn't call.</li><li>She joked, 'I'll track you down if you forget my birthday.'</li></ul></div>
-                    <div class="related"><span class="label">See also</span> <span class="tag">find you</span><span class="tag">hunt you down</span><span class="tag">come after you</span><span class="tag">track you to the ends of the earth</span></div>
-                    <div class="detail-meta">informal</div>
+                    <div class="detail-context">Jay threatens Haley that he will find her if she goes to the party.</div>
+                    <div class="detail-explanation">A semi-serious threat meaning 'I will find you no matter what.' (我会找到你的) Usually said by parents or authority figures. Cluster: 'I'll hunt you down', 'I'll find you', 'you can't hide from me'. Tone can be playful or stern. Jay says it with a smile but means it.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>If you take my car without asking, I will track you down.</li><li>She said she'd track me down if I didn't call her back.</li><li>Don't worry, I'll track you down at the party later.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">I'll hunt you down</span><span class="tag">I'll find you</span><span class="tag">you can't hide from me</span><span class="tag">I'll catch up with you</span><span class="tag">I'll get you</span></div>
+                    <div class="detail-meta">casual</div>
                     <div class="video-container" data-loaded="0">
                         <div class="video-placeholder">Loading video clip...</div>
                     </div>
                 </div>
             </div>
             
-            <div class="point user" data-source="user" data-index="15" data-quote="You just gave us a new song." data-ytquery="You just gave us a new song. tv show scene" data-point='{"quote": "You just gave us a new song.", "category": "phrase", "frequency": "low", "context": "Phil tells Claire that the failed anniversary gift actually created a new meaningful memory", "explanation": "A beautiful reframing. &#39;Gave us a new song&#39; = created a new shared memory. (你给了我们一首新歌) It&#39;s not literal — it means turning a disaster into a positive. Phil is showing emotional intelligence: instead of complaining, he finds the silver lining.", "examples": ["We had a terrible vacation, but at least it gave us a funny story.", "The burnt dinner gave us a new tradition — ordering pizza and laughing about it.", "Sometimes a failed plan gives you a better memory than a perfect one."], "related": ["silver lining", "make the best of it", "turn lemons into lemonade", "new memory"], "formality": "informal", "source": "user"}'>
+            <div class="point ai" data-source="ai" data-index="16" data-quote="Help yourself." data-ytquery="Help yourself. tv show scene" data-point='{"quote": "Help yourself.", "category": "phrase", "frequency": "high", "context": "Jay tells Dylan to help himself to the Sloppy Jays.", "explanation": "A polite invitation to take food or drink without waiting to be served. (请自便、随便吃) Very common in casual hosting. Cluster: &#39;help yourself&#39;, &#39;feel free&#39;, &#39;go ahead&#39;, &#39;dig in&#39;. It&#39;s warm and welcoming. Also used sarcastically: &#39;Knock yourself out&#39;.", "examples": ["There&#39;s pizza in the kitchen — help yourself.", "Help yourself to a drink from the fridge.", "She said, &#39;Help yourself to the snacks,&#39; so I grabbed a handful."], "related": ["feel free", "go ahead", "dig in", "serve yourself", "take what you want", "help yourself to"], "formality": "casual", "source": "ai"}'>
                 <div class="point-summary" onclick="togglePoint(this)">
                     <div class="point-left">
-                        <span class="badge badge-user">Your note</span>
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-high">high</span>
+                    </div>
+                    <div class="point-quote">"Help yourself."</div>
+                    <div class="point-hint">A polite invitation to take food or drink without waiting to be served. (请自便、随便吃...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Jay tells Dylan to help himself to the Sloppy Jays.</div>
+                    <div class="detail-explanation">A polite invitation to take food or drink without waiting to be served. (请自便、随便吃) Very common in casual hosting. Cluster: 'help yourself', 'feel free', 'go ahead', 'dig in'. It's warm and welcoming. Also used sarcastically: 'Knock yourself out'.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>There's pizza in the kitchen — help yourself.</li><li>Help yourself to a drink from the fridge.</li><li>She said, 'Help yourself to the snacks,' so I grabbed a handful.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">feel free</span><span class="tag">go ahead</span><span class="tag">dig in</span><span class="tag">serve yourself</span><span class="tag">take what you want</span><span class="tag">help yourself to</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="17" data-quote="Right on." data-ytquery="Right on. tv show scene" data-point='{"quote": "Right on.", "category": "phrase", "frequency": "low", "context": "Dylan responds enthusiastically when he figures out why they&#39;re called &#39;Sloppy Jays&#39;.", "explanation": "An informal exclamation of agreement or enthusiasm, popular in the 1960s-70s but still used. (没错、说得好) Cluster: &#39;for sure&#39;, &#39;totally&#39;, &#39;amen&#39;, &#39;you got it&#39;. Dylan uses it to show he&#39;s cool and understands the joke. It&#39;s retro but charming.", "examples": ["You&#39;re coming to the concert? Right on!", "He said &#39;I&#39;ll bring the snacks&#39; and I said &#39;Right on!&#39;", "Right on, that&#39;s exactly what I was thinking."], "related": ["for sure", "totally", "amen", "you got it", "word", "cool"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
                         <span class="cat">💬 phrase</span>
                         <span class="freq freq-low">low</span>
                     </div>
-                    <div class="point-quote">"You just gave us a new song."</div>
-                    <div class="point-hint">A beautiful reframing. 'Gave us a new song' = created a new shared memory. (你给了我...</div>
+                    <div class="point-quote">"Right on."</div>
+                    <div class="point-hint">An informal exclamation of agreement or enthusiasm, popular in the 1960s-70s but...</div>
                     <div class="point-actions">
                         <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
                         <span class="expand-icon">▸</span>
                     </div>
                 </div>
                 <div class="point-detail">
-                    <div class="detail-context">Phil tells Claire that the failed anniversary gift actually created a new meaningful memory</div>
-                    <div class="detail-explanation">A beautiful reframing. 'Gave us a new song' = created a new shared memory. (你给了我们一首新歌) It's not literal — it means turning a disaster into a positive. Phil is showing emotional intelligence: instead of complaining, he finds the silver lining.</div>
-                    <div class="examples"><span class="label">Examples</span><ul><li>We had a terrible vacation, but at least it gave us a funny story.</li><li>The burnt dinner gave us a new tradition — ordering pizza and laughing about it.</li><li>Sometimes a failed plan gives you a better memory than a perfect one.</li></ul></div>
-                    <div class="related"><span class="label">See also</span> <span class="tag">silver lining</span><span class="tag">make the best of it</span><span class="tag">turn lemons into lemonade</span><span class="tag">new memory</span></div>
-                    <div class="detail-meta">informal</div>
+                    <div class="detail-context">Dylan responds enthusiastically when he figures out why they're called 'Sloppy Jays'.</div>
+                    <div class="detail-explanation">An informal exclamation of agreement or enthusiasm, popular in the 1960s-70s but still used. (没错、说得好) Cluster: 'for sure', 'totally', 'amen', 'you got it'. Dylan uses it to show he's cool and understands the joke. It's retro but charming.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>You're coming to the concert? Right on!</li><li>He said 'I'll bring the snacks' and I said 'Right on!'</li><li>Right on, that's exactly what I was thinking.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">for sure</span><span class="tag">totally</span><span class="tag">amen</span><span class="tag">you got it</span><span class="tag">word</span><span class="tag">cool</span></div>
+                    <div class="detail-meta">casual</div>
                     <div class="video-container" data-loaded="0">
                         <div class="video-placeholder">Loading video clip...</div>
                     </div>
                 </div>
             </div>
             
-            <div class="point user" data-source="user" data-index="16" data-quote="Don't fight it, Haley. They never grow up." data-ytquery="Dont fight it, Haley. They never grow up. tv show scene" data-point='{"quote": "Don&#39;t fight it, Haley. They never grow up.", "category": "phrase", "frequency": "medium", "context": "Gloria tells Haley to accept that men are childish — about Dylan and Jay watching cowboys", "explanation": "A universal female wisdom: men retain boyish enthusiasm forever. (别挣扎了，他们永远长不大) &#39;Don&#39;t fight it&#39; = accept reality. &#39;They never grow up&#39; = men always have childlike interests. It&#39;s a resigned, affectionate observation, not bitter.", "examples": ["My husband still plays video games at 40 — they never grow up.", "Don&#39;t fight it — he&#39;ll always want to watch action movies.", "She sighed and said, &#39;They never grow up,&#39; as her boyfriend bought another toy."], "related": ["boys will be boys", "just let them be", "pick your battles", "accept it"], "formality": "informal", "source": "user"}'>
+            <div class="point ai" data-source="ai" data-index="18" data-quote="Don't fight it, Haley. They never grow up." data-ytquery="Dont fight it, Haley. They never grow up. tv show scene" data-point='{"quote": "Don&#39;t fight it, Haley. They never grow up.", "category": "phrase", "frequency": "medium", "context": "Gloria tells Haley to accept that boys will always be boys, especially when it comes to cowboys and movies.", "explanation": "A resigned, wise observation about men&#39;s perpetual immaturity. (别挣扎了，他们永远长不大) &#39;Don&#39;t fight it&#39; means accept the inevitable. &#39;They never grow up&#39; is a common stereotype. Cluster: &#39;boys will be boys&#39;, &#39;men are kids&#39;, &#39;accept it&#39;. Gloria speaks from experience.", "examples": ["My husband still plays video games at 40. Don&#39;t fight it — they never grow up.", "She realized her dad would always be a kid at heart. Don&#39;t fight it.", "Boys will be boys — they never really grow up."], "related": ["boys will be boys", "accept it", "let it go", "it is what it is", "that&#39;s just how it is", "can&#39;t change them"], "formality": "casual", "source": "ai"}'>
                 <div class="point-summary" onclick="togglePoint(this)">
                     <div class="point-left">
-                        <span class="badge badge-user">Your note</span>
+                        <span class="badge badge-ext">Extras</span>
                         <span class="cat">💬 phrase</span>
                         <span class="freq freq-medium">medium</span>
                     </div>
                     <div class="point-quote">"Don't fight it, Haley. They never grow up."</div>
-                    <div class="point-hint">A universal female wisdom: men retain boyish enthusiasm forever. (别挣扎了，他们永远长不大) ...</div>
+                    <div class="point-hint">A resigned, wise observation about men's perpetual immaturity. (别挣扎了，他们永远长不大) 'D...</div>
                     <div class="point-actions">
                         <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
                         <span class="expand-icon">▸</span>
                     </div>
                 </div>
                 <div class="point-detail">
-                    <div class="detail-context">Gloria tells Haley to accept that men are childish — about Dylan and Jay watching cowboys</div>
-                    <div class="detail-explanation">A universal female wisdom: men retain boyish enthusiasm forever. (别挣扎了，他们永远长不大) 'Don't fight it' = accept reality. 'They never grow up' = men always have childlike interests. It's a resigned, affectionate observation, not bitter.</div>
-                    <div class="examples"><span class="label">Examples</span><ul><li>My husband still plays video games at 40 — they never grow up.</li><li>Don't fight it — he'll always want to watch action movies.</li><li>She sighed and said, 'They never grow up,' as her boyfriend bought another toy.</li></ul></div>
-                    <div class="related"><span class="label">See also</span> <span class="tag">boys will be boys</span><span class="tag">just let them be</span><span class="tag">pick your battles</span><span class="tag">accept it</span></div>
-                    <div class="detail-meta">informal</div>
+                    <div class="detail-context">Gloria tells Haley to accept that boys will always be boys, especially when it comes to cowboys and movies.</div>
+                    <div class="detail-explanation">A resigned, wise observation about men's perpetual immaturity. (别挣扎了，他们永远长不大) 'Don't fight it' means accept the inevitable. 'They never grow up' is a common stereotype. Cluster: 'boys will be boys', 'men are kids', 'accept it'. Gloria speaks from experience.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>My husband still plays video games at 40. Don't fight it — they never grow up.</li><li>She realized her dad would always be a kid at heart. Don't fight it.</li><li>Boys will be boys — they never really grow up.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">boys will be boys</span><span class="tag">accept it</span><span class="tag">let it go</span><span class="tag">it is what it is</span><span class="tag">that's just how it is</span><span class="tag">can't change them</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="19" data-quote="This is first-child syndrome." data-ytquery="This is first-child syndrome. tv show scene" data-point='{"quote": "This is first-child syndrome.", "category": "phrase", "frequency": "low", "context": "Cameron compares Sal&#39;s jealousy of Lily to a child acting out when a sibling arrives.", "explanation": "A humorous pseudo-psychological term for jealousy of a new &#39;arrival.&#39; (老大综合症) &#39;Syndrome&#39; is used mockingly. The cluster: &#39;sibling rivalry&#39;, &#39;acting out&#39;, &#39;jealous&#39;. Cameron uses it to explain Sal&#39;s behavior. It&#39;s a clever, funny way to describe a common dynamic.", "examples": ["My dog is totally suffering from first-child syndrome since we got a puppy.", "She&#39;s been sulking all week — it&#39;s first-child syndrome because her friend got a new car.", "The cat has first-child syndrome now that we have a baby."], "related": ["sibling rivalry", "acting out", "jealous", "showing off", "attention-seeking"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-low">low</span>
+                    </div>
+                    <div class="point-quote">"This is first-child syndrome."</div>
+                    <div class="point-hint">A humorous pseudo-psychological term for jealousy of a new 'arrival.' (老大综合症) 'S...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Cameron compares Sal's jealousy of Lily to a child acting out when a sibling arrives.</div>
+                    <div class="detail-explanation">A humorous pseudo-psychological term for jealousy of a new 'arrival.' (老大综合症) 'Syndrome' is used mockingly. The cluster: 'sibling rivalry', 'acting out', 'jealous'. Cameron uses it to explain Sal's behavior. It's a clever, funny way to describe a common dynamic.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>My dog is totally suffering from first-child syndrome since we got a puppy.</li><li>She's been sulking all week — it's first-child syndrome because her friend got a new car.</li><li>The cat has first-child syndrome now that we have a baby.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">sibling rivalry</span><span class="tag">acting out</span><span class="tag">jealous</span><span class="tag">showing off</span><span class="tag">attention-seeking</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="20" data-quote="You put something over on me, you're gonna lose." data-ytquery="You put something over on me, youre gonna lose. tv show scene" data-point='{"quote": "You put something over on me, you&#39;re gonna lose.", "category": "phrase", "frequency": "medium", "context": "Jay says this to Gloria about his determination not to be fooled by Haley.", "explanation": "An idiom meaning to deceive or trick someone. (想骗我？你输定了) &#39;Put something over on someone&#39; = successfully trick them. &#39;You&#39;re gonna lose&#39; = you&#39;ll fail. It&#39;s a warning. Cluster: &#39;pull a fast one&#39;, &#39;fool me&#39;, &#39;take advantage&#39;. Jay is saying he&#39;s too smart to be tricked.", "examples": ["You think you can put something over on me? Not a chance.", "He tried to put one over on the teacher, but she caught him.", "Don&#39;t try to put something over on your mom — she knows everything."], "related": ["pull a fast one", "fool me", "take advantage", "deceive", "trick", "con"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-medium">medium</span>
+                    </div>
+                    <div class="point-quote">"You put something over on me, you're gonna lose."</div>
+                    <div class="point-hint">An idiom meaning to deceive or trick someone. (想骗我？你输定了) 'Put something over on ...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Jay says this to Gloria about his determination not to be fooled by Haley.</div>
+                    <div class="detail-explanation">An idiom meaning to deceive or trick someone. (想骗我？你输定了) 'Put something over on someone' = successfully trick them. 'You're gonna lose' = you'll fail. It's a warning. Cluster: 'pull a fast one', 'fool me', 'take advantage'. Jay is saying he's too smart to be tricked.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>You think you can put something over on me? Not a chance.</li><li>He tried to put one over on the teacher, but she caught him.</li><li>Don't try to put something over on your mom — she knows everything.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">pull a fast one</span><span class="tag">fool me</span><span class="tag">take advantage</span><span class="tag">deceive</span><span class="tag">trick</span><span class="tag">con</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="21" data-quote="Who knows how many nights like this I got left?" data-ytquery="Who knows how many nights like this I got left? tv show scene" data-point='{"quote": "Who knows how many nights like this I got left?", "category": "phrase", "frequency": "medium", "context": "Jay says this to Gloria about wanting to spend time with his grandkids.", "explanation": "A sentimental, somewhat dramatic way of saying &#39;I might not have much time left.&#39; (谁知道我还能有多少这样的夜晚) &#39;Who knows&#39; = uncertainty. &#39;Got left&#39; = remaining time. Cluster: &#39;time is precious&#39;, &#39;I&#39;m not getting any younger&#39;, &#39;mortality&#39;. Used to justify indulgent behavior.", "examples": ["I&#39;m going to eat this cake — who knows how many slices I got left?", "He said yes to every invitation, saying, &#39;Who knows how many chances I got left?&#39;", "She bought the expensive shoes — who knows how many shopping trips she got left?"], "related": ["time is precious", "I&#39;m not getting any younger", "mortality", "carpe diem", "seize the day"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-medium">medium</span>
+                    </div>
+                    <div class="point-quote">"Who knows how many nights like this I got left?"</div>
+                    <div class="point-hint">A sentimental, somewhat dramatic way of saying 'I might not have much time left....</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Jay says this to Gloria about wanting to spend time with his grandkids.</div>
+                    <div class="detail-explanation">A sentimental, somewhat dramatic way of saying 'I might not have much time left.' (谁知道我还能有多少这样的夜晚) 'Who knows' = uncertainty. 'Got left' = remaining time. Cluster: 'time is precious', 'I'm not getting any younger', 'mortality'. Used to justify indulgent behavior.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>I'm going to eat this cake — who knows how many slices I got left?</li><li>He said yes to every invitation, saying, 'Who knows how many chances I got left?'</li><li>She bought the expensive shoes — who knows how many shopping trips she got left?</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">time is precious</span><span class="tag">I'm not getting any younger</span><span class="tag">mortality</span><span class="tag">carpe diem</span><span class="tag">seize the day</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="22" data-quote="You're a good abuelo." data-ytquery="Youre a good abuelo. tv show scene" data-point='{"quote": "You&#39;re a good abuelo.", "category": "phrase", "frequency": "low", "context": "Gloria calls Jay a good grandfather after he lets Haley go to the party.", "explanation": "&#39;Abuelo&#39; is Spanish for grandfather. (好爷爷) Gloria uses it affectionately, blending her Colombian heritage with the moment. Cluster: &#39;grandpa&#39;, &#39;granddad&#39;, &#39;pop&#39;, &#39;papa&#39;. Using foreign terms of endearment can add warmth and cultural flavor.", "examples": ["He&#39;s such a good abuelo — he always brings treats.", "My abuelo taught me how to fish.", "She calls her grandfather &#39;abuelo&#39; even though they live in the US."], "related": ["grandpa", "granddad", "pop", "papa", "grandfather", "gramps"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-low">low</span>
+                    </div>
+                    <div class="point-quote">"You're a good abuelo."</div>
+                    <div class="point-hint">'Abuelo' is Spanish for grandfather. (好爷爷) Gloria uses it affectionately, blendi...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Gloria calls Jay a good grandfather after he lets Haley go to the party.</div>
+                    <div class="detail-explanation">'Abuelo' is Spanish for grandfather. (好爷爷) Gloria uses it affectionately, blending her Colombian heritage with the moment. Cluster: 'grandpa', 'granddad', 'pop', 'papa'. Using foreign terms of endearment can add warmth and cultural flavor.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>He's such a good abuelo — he always brings treats.</li><li>My abuelo taught me how to fish.</li><li>She calls her grandfather 'abuelo' even though they live in the US.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">grandpa</span><span class="tag">granddad</span><span class="tag">pop</span><span class="tag">papa</span><span class="tag">grandfather</span><span class="tag">gramps</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="23" data-quote="Give her eight shots of tequila." data-ytquery="Give her eight shots of tequila. tv show scene" data-point='{"quote": "Give her eight shots of tequila.", "category": "phrase", "frequency": "low", "context": "Cameron jokes about getting Lily to sleep after Sal passes out drunk.", "explanation": "A darkly humorous suggestion — giving a baby alcohol to sleep. (给她灌八杯龙舌兰) Obviously not serious. Cluster: &#39;just kidding&#39;, &#39;too soon&#39;, &#39;dark humor&#39;. It&#39;s a joke only close friends would get. Cameron is being sarcastic about how easy it is to get Sal to sleep vs. Lily.", "examples": ["The baby won&#39;t sleep? Give her eight shots of tequila — kidding!", "He said the same about his hyper puppy: &#39;Just give it some wine.&#39;", "Dark humor like this is common among exhausted parents."], "related": ["just kidding", "too soon", "dark humor", "gallows humor", "sarcastic joke"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-low">low</span>
+                    </div>
+                    <div class="point-quote">"Give her eight shots of tequila."</div>
+                    <div class="point-hint">A darkly humorous suggestion — giving a baby alcohol to sleep. (给她灌八杯龙舌兰) Obviou...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Cameron jokes about getting Lily to sleep after Sal passes out drunk.</div>
+                    <div class="detail-explanation">A darkly humorous suggestion — giving a baby alcohol to sleep. (给她灌八杯龙舌兰) Obviously not serious. Cluster: 'just kidding', 'too soon', 'dark humor'. It's a joke only close friends would get. Cameron is being sarcastic about how easy it is to get Sal to sleep vs. Lily.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>The baby won't sleep? Give her eight shots of tequila — kidding!</li><li>He said the same about his hyper puppy: 'Just give it some wine.'</li><li>Dark humor like this is common among exhausted parents.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">just kidding</span><span class="tag">too soon</span><span class="tag">dark humor</span><span class="tag">gallows humor</span><span class="tag">sarcastic joke</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="24" data-quote="You just gave us a new song." data-ytquery="You just gave us a new song. tv show scene" data-point='{"quote": "You just gave us a new song.", "category": "phrase", "frequency": "high", "context": "Phil comforts Claire after she realizes she got the wrong song for their anniversary.", "explanation": "A romantic reframing — instead of a mistake, it&#39;s a new memory. (你给了我们一首新歌) This is a classic &#39;silver lining&#39; move. Cluster: &#39;turning lemons into lemonade&#39;, &#39;making the best of it&#39;, &#39;blessing in disguise&#39;. Phil is emotionally intelligent here.", "examples": ["We missed the flight, but it gave us a new adventure.", "She burned dinner, but we laughed about it — it became a new memory.", "The wrong gift turned into a new tradition."], "related": ["silver lining", "turning lemons into lemonade", "blessing in disguise", "make the best of it", "every cloud has a silver lining"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-high">high</span>
+                    </div>
+                    <div class="point-quote">"You just gave us a new song."</div>
+                    <div class="point-hint">A romantic reframing — instead of a mistake, it's a new memory. (你给了我们一首新歌) This...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Phil comforts Claire after she realizes she got the wrong song for their anniversary.</div>
+                    <div class="detail-explanation">A romantic reframing — instead of a mistake, it's a new memory. (你给了我们一首新歌) This is a classic 'silver lining' move. Cluster: 'turning lemons into lemonade', 'making the best of it', 'blessing in disguise'. Phil is emotionally intelligent here.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>We missed the flight, but it gave us a new adventure.</li><li>She burned dinner, but we laughed about it — it became a new memory.</li><li>The wrong gift turned into a new tradition.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">silver lining</span><span class="tag">turning lemons into lemonade</span><span class="tag">blessing in disguise</span><span class="tag">make the best of it</span><span class="tag">every cloud has a silver lining</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="25" data-quote="Rekindled fires of a dying passion?" data-ytquery="Rekindled fires of a dying passion? tv show scene" data-point='{"quote": "Rekindled fires of a dying passion?", "category": "phrase", "frequency": "medium", "context": "Izzy sarcastically asks if the anniversary drama has brought Phil and Claire closer together.", "explanation": "A metaphorical phrase meaning to revive a fading romantic relationship. (重燃激情之火) &#39;Rekindle&#39; = light again. &#39;Dying passion&#39; = love that&#39;s fading. Cluster: &#39;spice things up&#39;, &#39;reignite the spark&#39;, &#39;breathe new life into&#39;. Izzy uses it mockingly.", "examples": ["They went on a second honeymoon to rekindle the fires of their passion.", "A surprise date night can rekindle a dying relationship.", "They took a dance class together to reignite the spark."], "related": ["reignite the spark", "breathe new life into", "spice things up", "revive", "rekindle", "bring back the magic"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-medium">medium</span>
+                    </div>
+                    <div class="point-quote">"Rekindled fires of a dying passion?"</div>
+                    <div class="point-hint">A metaphorical phrase meaning to revive a fading romantic relationship. (重燃激情之火)...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Izzy sarcastically asks if the anniversary drama has brought Phil and Claire closer together.</div>
+                    <div class="detail-explanation">A metaphorical phrase meaning to revive a fading romantic relationship. (重燃激情之火) 'Rekindle' = light again. 'Dying passion' = love that's fading. Cluster: 'spice things up', 'reignite the spark', 'breathe new life into'. Izzy uses it mockingly.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>They went on a second honeymoon to rekindle the fires of their passion.</li><li>A surprise date night can rekindle a dying relationship.</li><li>They took a dance class together to reignite the spark.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">reignite the spark</span><span class="tag">breathe new life into</span><span class="tag">spice things up</span><span class="tag">revive</span><span class="tag">rekindle</span><span class="tag">bring back the magic</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="26" data-quote="He fell in love to a breakup song." data-ytquery="He fell in love to a breakup song. tv show scene" data-point='{"quote": "He fell in love to a breakup song.", "category": "phrase", "frequency": "low", "context": "Izzy points out that Phil&#39;s actual wedding song is about breaking up.", "explanation": "A witty observation — ironic that a breakup song was their wedding song. (他听着分手歌谈的恋爱) &#39;Fell in love to&#39; means the song was playing when they fell in love. &#39;Breakup song&#39; = sad song about ending things. Izzy is being a jerk but also funny.", "examples": ["They danced to a song about cheating at their wedding — ironic.", "He proposed to a breakup ballad; it was so awkward.", "That song is about heartbreak, but it&#39;s their &#39;song&#39; — how ironic."], "related": ["ironic", "how ironic", "that&#39;s rich", "talk about irony", "unfortunate choice"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-low">low</span>
+                    </div>
+                    <div class="point-quote">"He fell in love to a breakup song."</div>
+                    <div class="point-hint">A witty observation — ironic that a breakup song was their wedding song. (他听着分手歌...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Izzy points out that Phil's actual wedding song is about breaking up.</div>
+                    <div class="detail-explanation">A witty observation — ironic that a breakup song was their wedding song. (他听着分手歌谈的恋爱) 'Fell in love to' means the song was playing when they fell in love. 'Breakup song' = sad song about ending things. Izzy is being a jerk but also funny.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>They danced to a song about cheating at their wedding — ironic.</li><li>He proposed to a breakup ballad; it was so awkward.</li><li>That song is about heartbreak, but it's their 'song' — how ironic.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">ironic</span><span class="tag">how ironic</span><span class="tag">that's rich</span><span class="tag">talk about irony</span><span class="tag">unfortunate choice</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="27" data-quote="I will spray you with the hose." data-ytquery="I will spray you with the hose. tv show scene" data-point='{"quote": "I will spray you with the hose.", "category": "phrase", "frequency": "low", "context": "Jay threatens Manny with a garden hose if he flirts with Haley.", "explanation": "A humorous, exaggerated threat — spraying someone with water like a misbehaving dog. (我要用水管喷你) Cluster: &#39;I&#39;ll wash your mouth out with soap&#39;, &#39;I&#39;ll put you over my knee&#39;, &#39;I&#39;ll give you a time out&#39;. It&#39;s a joke, but with a real warning behind it.", "examples": ["If you keep teasing your sister, I&#39;ll spray you with the hose.", "He was acting up in the yard, so I said I&#39;d spray him with the hose.", "It&#39;s a classic dad threat — &#39;I&#39;ll spray you with the hose!&#39;"], "related": ["I&#39;ll wash your mouth out with soap", "I&#39;ll put you over my knee", "I&#39;ll give you a time out", "I&#39;ll make you sit in the corner"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-low">low</span>
+                    </div>
+                    <div class="point-quote">"I will spray you with the hose."</div>
+                    <div class="point-hint">A humorous, exaggerated threat — spraying someone with water like a misbehaving ...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Jay threatens Manny with a garden hose if he flirts with Haley.</div>
+                    <div class="detail-explanation">A humorous, exaggerated threat — spraying someone with water like a misbehaving dog. (我要用水管喷你) Cluster: 'I'll wash your mouth out with soap', 'I'll put you over my knee', 'I'll give you a time out'. It's a joke, but with a real warning behind it.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>If you keep teasing your sister, I'll spray you with the hose.</li><li>He was acting up in the yard, so I said I'd spray him with the hose.</li><li>It's a classic dad threat — 'I'll spray you with the hose!'</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">I'll wash your mouth out with soap</span><span class="tag">I'll put you over my knee</span><span class="tag">I'll give you a time out</span><span class="tag">I'll make you sit in the corner</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="28" data-quote="I'm sorry for the pay-channel language." data-ytquery="Im sorry for the pay-channel language. tv show scene" data-point='{"quote": "I&#39;m sorry for the pay-channel language.", "category": "phrase", "frequency": "low", "context": "Phil apologizes for saying &#39;sucks&#39; in front of the kids.", "explanation": "A clever euphemism for swearing — &#39;pay-channel&#39; means premium cable (HBO) where you can say &#39;bad&#39; words. (抱歉我说了付费频道里的脏话) Cluster: &#39;watch your language&#39;, &#39;mind your mouth&#39;, &#39;clean it up&#39;. Phil is being self-aware and funny.", "examples": ["Oops, sorry for the pay-channel language — I meant to say &#39;darn&#39;.", "He dropped the food and said some pay-channel language.", "In front of the kids, I try to avoid pay-channel language."], "related": ["watch your language", "mind your mouth", "clean it up", "language", "excuse my French", "pardon my language"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-low">low</span>
+                    </div>
+                    <div class="point-quote">"I'm sorry for the pay-channel language."</div>
+                    <div class="point-hint">A clever euphemism for swearing — 'pay-channel' means premium cable (HBO) where ...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Phil apologizes for saying 'sucks' in front of the kids.</div>
+                    <div class="detail-explanation">A clever euphemism for swearing — 'pay-channel' means premium cable (HBO) where you can say 'bad' words. (抱歉我说了付费频道里的脏话) Cluster: 'watch your language', 'mind your mouth', 'clean it up'. Phil is being self-aware and funny.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>Oops, sorry for the pay-channel language — I meant to say 'darn'.</li><li>He dropped the food and said some pay-channel language.</li><li>In front of the kids, I try to avoid pay-channel language.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">watch your language</span><span class="tag">mind your mouth</span><span class="tag">clean it up</span><span class="tag">language</span><span class="tag">excuse my French</span><span class="tag">pardon my language</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="29" data-quote="Back at you, champ." data-ytquery="Back at you, champ. tv show scene" data-point='{"quote": "Back at you, champ.", "category": "phrase", "frequency": "high", "context": "Jay responds to Luke&#39;s declaration of love.", "explanation": "A casual way to return a sentiment. (你也一样，小子) &#39;Back at you&#39; = same to you. &#39;Champ&#39; is a friendly nickname, often used by older people to younger ones. Cluster: &#39;right back at you&#39;, &#39;same to you&#39;, &#39;ditto&#39;. It&#39;s warm but not overly sentimental.", "examples": ["You&#39;re the best! Back at you, buddy.", "When he said &#39;good game&#39;, I said &#39;back at you, champ.&#39;", "She wished me luck, and I said &#39;back at you.&#39;"], "related": ["right back at you", "same to you", "ditto", "likewise", "you too", "back atcha"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-high">high</span>
+                    </div>
+                    <div class="point-quote">"Back at you, champ."</div>
+                    <div class="point-hint">A casual way to return a sentiment. (你也一样，小子) 'Back at you' = same to you. 'Cham...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Jay responds to Luke's declaration of love.</div>
+                    <div class="detail-explanation">A casual way to return a sentiment. (你也一样，小子) 'Back at you' = same to you. 'Champ' is a friendly nickname, often used by older people to younger ones. Cluster: 'right back at you', 'same to you', 'ditto'. It's warm but not overly sentimental.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>You're the best! Back at you, buddy.</li><li>When he said 'good game', I said 'back at you, champ.'</li><li>She wished me luck, and I said 'back at you.'</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">right back at you</span><span class="tag">same to you</span><span class="tag">ditto</span><span class="tag">likewise</span><span class="tag">you too</span><span class="tag">back atcha</span></div>
+                    <div class="detail-meta">casual</div>
+                    <div class="video-container" data-loaded="0">
+                        <div class="video-placeholder">Loading video clip...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="point ai" data-source="ai" data-index="30" data-quote="Show me the pictures of Yoko." data-ytquery="Show me the pictures of Yoko. tv show scene" data-point='{"quote": "Show me the pictures of Yoko.", "category": "phrase", "frequency": "low", "context": "Sal, after being confronted, demands to see pictures of Lily, using a sarcastic nickname.", "explanation": "A reference to Yoko Ono, who was blamed for breaking up the Beatles. (给我看那个洋子的照片) Sal compares Lily to Yoko, implying Lily ruined their friendship. It&#39;s a pop culture dig — dark and funny. Cluster: &#39;the third wheel&#39;, &#39;the interloper&#39;, &#39;the homewrecker&#39;. Shows Sal&#39;s resentment.", "examples": ["Ever since he got a girlfriend, he never hangs out — she&#39;s his Yoko.", "My best friend&#39;s new partner is like Yoko — always around.", "He jokingly called his friend&#39;s new dog &#39;Yoko&#39; because it takes all the attention."], "related": ["the third wheel", "the interloper", "the homewrecker", "the new addition", "the intruder"], "formality": "casual", "source": "ai"}'>
+                <div class="point-summary" onclick="togglePoint(this)">
+                    <div class="point-left">
+                        <span class="badge badge-ext">Extras</span>
+                        <span class="cat">💬 phrase</span>
+                        <span class="freq freq-low">low</span>
+                    </div>
+                    <div class="point-quote">"Show me the pictures of Yoko."</div>
+                    <div class="point-hint">A reference to Yoko Ono, who was blamed for breaking up the Beatles. (给我看那个洋子的照片...</div>
+                    <div class="point-actions">
+                        <button class="btn-record" onclick="event.stopPropagation();toggleRecord(this)" title="Record your voice">🎤</button>
+                        <span class="expand-icon">▸</span>
+                    </div>
+                </div>
+                <div class="point-detail">
+                    <div class="detail-context">Sal, after being confronted, demands to see pictures of Lily, using a sarcastic nickname.</div>
+                    <div class="detail-explanation">A reference to Yoko Ono, who was blamed for breaking up the Beatles. (给我看那个洋子的照片) Sal compares Lily to Yoko, implying Lily ruined their friendship. It's a pop culture dig — dark and funny. Cluster: 'the third wheel', 'the interloper', 'the homewrecker'. Shows Sal's resentment.</div>
+                    <div class="examples"><span class="label">Examples</span><ul><li>Ever since he got a girlfriend, he never hangs out — she's his Yoko.</li><li>My best friend's new partner is like Yoko — always around.</li><li>He jokingly called his friend's new dog 'Yoko' because it takes all the attention.</li></ul></div>
+                    <div class="related"><span class="label">See also</span> <span class="tag">the third wheel</span><span class="tag">the interloper</span><span class="tag">the homewrecker</span><span class="tag">the new addition</span><span class="tag">the intruder</span></div>
+                    <div class="detail-meta">casual</div>
                     <div class="video-container" data-loaded="0">
                         <div class="video-placeholder">Loading video clip...</div>
                     </div>
@@ -917,7 +1281,7 @@ function toggleTheme() {
 })();
 
 // ===== Review Mode =====
-const TOTAL_POINTS = 17;
+const TOTAL_POINTS = 31;
 const EPISODE = 'S01E08';
 const STORAGE_KEY = 'mf_review_' + EPISODE;
 let reviewQueue = [];
@@ -1030,7 +1394,7 @@ function showCard() {
     // Front
     const icon = ({phrase:'💬',vocabulary:'📖',grammar:'📐',culture:'🇺🇸',pronunciation:'🔊',pragmatics:'🎭'})[point.category] || '💡';
     document.getElementById('rcfBadges').innerHTML = `
-        <span class="badge badge-${point.source === 'user' ? 'user' : 'ai'}">${point.source === 'user' ? 'Your note' : 'AI found'}</span>
+        <span class="badge badge-${point.source === 'user' ? 'user' : 'ai'}">${point.source === 'user' ? 'Your note' : 'Extras'}</span>
         <span class="cat">${icon} ${point.category}</span>
         <span class="freq freq-${point.frequency}">${point.frequency}</span>
     `;
